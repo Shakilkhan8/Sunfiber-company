@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="carpet_product_group_id" model="res.groups">
+            <field name="name">Carpet / Production Area</field>
+        </record>
+
+        <record id="carpet_manager_group_id" model="res.groups">
+            <field name="name">Carpet / Manager</field>
+        </record>
+
+        <record id="carpet_user_group_id" model="res.groups">
+            <field name="name">Carpet User</field>
+        </record>
+        <record id="fiber_user_group_id" model="res.groups">
+            <field name="name">Fiber User</field>
+        </record>
+    </data>
+</odoo>

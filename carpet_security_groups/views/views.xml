@@ -1,0 +1,9 @@
+<odoo>
+  <data>
+    <menuitem id="stock.menu_product_category_config_stock" groups="carpet_security_groups.carpet_manager_group_id"/>
+    <menuitem id="carpet_barcode_menu_item_id" groups="carpet_security_groups.carpet_manager_group_id"/>
+    <menuitem id="carpet_grade_menu_item_id" groups="carpet_security_groups.carpet_manager_group_id"/>
+    <menuitem id="carpet_quality_menu_item_id" groups="carpet_security_groups.carpet_manager_group_id"/>
+
+  </data>
+</odoo>

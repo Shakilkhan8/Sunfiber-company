@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="child_design_form_id" model="ir.ui.view">
+           <field name="name">Child Design Form</field>
+           <field name="model">digital.print.child</field>
+           <field name="arch" type="xml">
+               <form string="_form">
+                   <sheet>
+                       <group>
+                           <group><field name="name" string="Child Design"/></group>
+                           <group><field name="categ_id" string="Parent Category"/></group>
+                           <group>
+                               <group><field name="image" widget="image" width="100" height="100"/></group>
+                           </group>
+                       </group>
+                       <group>
+                           <group colspan="4">
+                               <field name="combine_design_image" widget="image" width="300" height="300"/>
+                           </group>
+                       </group>
+                   </sheet>
+               </form>
+           </field>
+       </record>
+
+        <record id="child_design_tree_view_id" model="ir.ui.view">
+            <field name="name">Child DEsign Tree</field>
+            <field name="model">digital.print.child</field>
+            <field name="arch" type="xml">
+                <tree string="_tree" >
+                    <field name="name"/>
+                    <field name="categ_id"/>
+                    <field name="image" widget="image" width="50" height="50"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="design_child_design_action_id" model="ir.actions.act_window">
+            <field name="name">Child Design</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">digital.print.child</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="chile_categ_menu_item_id" name="Child Design"  action="design_child_design_action_id" parent="stock.menu_stock_config_settings"/>
+
+    </data>
+</odoo>

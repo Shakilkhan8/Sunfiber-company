@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_carpet_id,carpet.barcode,model_carpet_barcode,carpet_product_group_id,1,1,1,1
+access_sale_order_id,access_sale_order_name,model_sale_order,carpet_user_group_id,1,1,1,1
+access_fiber_sale_order_id,access_fiber_sale_order_name,model_sale_order,fiber_user_group_id,1,1,1,1
