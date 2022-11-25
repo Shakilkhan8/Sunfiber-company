@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="carpet_grades_form_id" model="ir.ui.view">
+           <field name="name">Carpet Grades</field>
+           <field name="model">carpet.grade</field>
+           <field name="arch" type="xml">
+               <form string="_form">
+                   <sheet>
+                       <group>
+                           <field name="name"/>
+
+                       </group>
+                   </sheet>
+               </form>
+           </field>
+       </record>
+
+        <record id="carpet_grade_tree_view_id" model="ir.ui.view">
+            <field name="name">Carpet Grades Tree</field>
+            <field name="model">carpet.grade</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carpet_grade_action_id" model="ir.actions.act_window">
+            <field name="name">Carpet Grade Action View</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">carpet.grade</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="carpet_grade_menu_item_id" name="Carpet Grades" action="carpet_grade_action_id" parent="stock.menu_stock_config_settings"/>
+
+
+    </data>
+</odoo>

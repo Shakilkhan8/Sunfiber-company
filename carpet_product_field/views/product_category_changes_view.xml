@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_category_view_inherit_id" model="ir.ui.view">
+            <field name="name">Product.category</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <field name="quality_id" widget="many2many_tags"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

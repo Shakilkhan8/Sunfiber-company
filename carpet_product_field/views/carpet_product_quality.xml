@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <!--carpet product quality form view-->
+
+        <record id="carpet_product_quality_form_id" model="ir.ui.view">
+            <field name="name">Carpet Quality</field>
+            <field name="model">carpet.product.quality</field>
+            <field name="arch" type="xml">
+                <form string="Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="carpet_quality_tree_id" model="ir.ui.view">
+            <field name="name">Carpet Quality Tree</field>
+            <field name="model">carpet.product.quality</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="carpet_quality_action_id" model="ir.actions.act_window">
+            <field name="name">Carpet Quality Action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">carpet.product.quality</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="carpet_quality_menu_item_id" name="Carpet Quality"  action="carpet_quality_action_id" parent="stock.menu_stock_config_settings"/>
+
+    </data>
+</odoo>

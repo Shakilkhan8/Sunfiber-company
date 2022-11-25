@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+<!--        carpet product barcode form view -->
+       <record id="carpet_barcode_form_view_id" model="ir.ui.view">
+           <field name="name">Carpet Brcode Form view</field>
+           <field name="model">carpet.barcode</field>
+           <field name="arch" type="xml">
+               <form string="_form" >
+                   <div class="container">
+                       <div class="row">
+                           <div class="col-6 offset-3 card p-5 bg-white" style="box-shadow:-1px 0px 11px 12px #e5e1e173">
+                               <div class="row card-body">
+                                   <group><field name="categ_id" options="{'no_create_edit': True, 'no_create': True}" string="Product"/></group>
+                                   <group><field name="check" invisible="1"/></group>
+                                   <group><field name="digital_print_child" options="{'no_create_edit': True, 'no_create': True}" string="Design" attrs="{'invisible': [('check', '=', False)]}"/></group>
+                                   <group><field name="carpet_quality" options="{'no_create_edit': True, 'no_create': True}"/></group>
+                                   <group><field name="carpet_color" options="{'no_create_edit': True, 'no_create': True}"/></group>
+                                   <group><field name="meters"/></group>
+                                   <group><field name="width"/></group>
+                                   <group><field name="carpet_grade_id" options="{'no_create_edit': True, 'no_create': True}"/></group>
+                                   <group><field name="location_id" invisible="True"/></group>
+
+                               </div>
+                               <button type="object" name="create_product_template" string="Create and Print" class="oe_highlight"/>
+
+                           </div>
+                       </div>
+
+                   </div>
+
+               </form>
+           </field>
+       </record>
+
+
+        <record id="carpet_barcode_tree_view_id" model="ir.ui.view">
+            <field name="name">Carpet Barcode Tree</field>
+            <field name="model">carpet.barcode</field>
+            <field name="arch" type="xml">
+                <tree string="_tree">
+                    <field name="categ_id"/>
+                    <field name="carpet_color"/>
+                </tree>
+            </field>
+        </record>
+        
+        
+        <record id="carpet_barcode_action_view_id" model="ir.actions.act_window">
+            <field name="name">Carpet Barcode</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">carpet.barcode</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem id="carpet_barcode_menu_item_id" name="Carpet Barcode" web_icon="carpet_product_barcod,static/src/img/carpetimage.jpg" action="carpet_barcode_action_view_id"/>
+    </data>
+</odoo>

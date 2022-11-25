@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--here in this view we add some fields to product_template model-->
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="carpet_product_field_id" model="ir.ui.view">
+            <field name="name">Carpet Product Field</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='categ_id']" position="attributes">
+                    <attribute name="string">Product Design</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='detailed_type']" position="after">
+                    <field name="carpet_color"/>
+                    <field name="unit_of_measure"/>
+                    <field name="carpet_length"/>
+                    <field name="carpet_width"/>
+                    <field name="carpet_grade_id"/>
+                    <field name="carpet_quality_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

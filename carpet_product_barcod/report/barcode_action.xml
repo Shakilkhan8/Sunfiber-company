@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+               <report
+                   id="product_barcode_action_id"
+                   model="carpet.barcode"
+                   report_type="qweb-pdf"
+                   string="Product Barcode"
+                   name="carpet_product_barcod.product_barcode_template_id"
+                   file="carpet_product_barcod.product_barcode_template_id"
+               />
+    </data>
+</odoo>
