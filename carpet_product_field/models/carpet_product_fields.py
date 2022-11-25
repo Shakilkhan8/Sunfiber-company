@@ -16,8 +16,7 @@ class CarpetProductFields(models.Model):
         change_default=True, group_expand='_read_group_categ_id',
         required=True, help="Select category for the current product")
     digital_print_child = fields.Many2one('digital.print.child')
-
-    # detailed_type = fields.Selection(selection_add=[('raw_material', 'Raw Material')], ondelete='default')
+    batch_number = fields.Text('Batch Number')
 
 
 class DigitalPrintChildCategory(models.Model):
