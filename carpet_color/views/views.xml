@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="carpet_color.list">
+      <field name="name">carpet_color list</field>
+      <field name="model">carpet_color.carpet_color</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="carpet_color.action_window">
+      <field name="name">carpet_color window</field>
+      <field name="res_model">carpet_color.carpet_color</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="carpet_color.action_server">
+      <field name="name">carpet_color server</field>
+      <field name="model_id" ref="model_carpet_color_carpet_color"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="carpet_color" id="carpet_color.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="carpet_color.menu_1" parent="carpet_color.menu_root"/>
+    <menuitem name="Menu 2" id="carpet_color.menu_2" parent="carpet_color.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="carpet_color.menu_1_list" parent="carpet_color.menu_1"
+              action="carpet_color.action_window"/>
+    <menuitem name="Server to list" id="carpet_color" parent="carpet_color.menu_2"
+              action="carpet_color.action_server"/>
+-->
+  </data>
+</odoo>

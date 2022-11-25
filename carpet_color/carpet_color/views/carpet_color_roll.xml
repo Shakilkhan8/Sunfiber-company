@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="carpet_color_form_id" model="ir.ui.view">
+            <field name="name">Carpet Color Roll</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='validity_date']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="sub_customer"/>
+                    <field name="customer_note"/>
+                    <!--<field name="total_roll"/>-->
+
+
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="replace">
+                    <field name="order_type"/>
+                    <field name="delivery_confirm"/>
+                </xpath>
+                <!-- sale order note-->
+                <xpath expr="//field[@name='sale_order_template_id']" position="after">
+                    <field name="payment_received"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="total_roll" invisible="True"/>
+                </xpath>
+
+                <xpath expr="//field[@name='sale_order_template_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+
+                <!--changing quantity name to roll-->
+                <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                       position="attributes">
+                    <attribute name="string">Roll</attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_unit']"
+                       position="before">
+                    <field name="square_foot"/>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='price_subtotal']"
+                       position="replace">
+                    <field name="price_subtotal" force_save="1"/>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='name']"
+                       position="after">
+                    <field name="quality_id"/>
+                    <field name="design_id"/>
+                    <field name="delivered"/>
+
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="domain">[('qty_available', '>', 0)]</attribute>
+                </xpath>
+
+                <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                <!--adding carpet color line to sale order-->
+                <xpath expr="//page[@name='order_lines']" position="before">
+                    <notebook string="Order Booking">
+                        <page string="Carpet Colors">
+                            <field name="color_line_id" widget="section_and_note_one2many" mode="tree,kanban">
+                                <tree string="Carpet Colors" editable="bottom">
+                                    <control>
+                                        <create string="Add product"/>
+                                        <create string="Add a section"
+                                                context="{'default_display_type': 'line_section'}"/>
+                                        <create string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                                    </control>
+
+                                    <field name="sequence" widget="handle"/>
+                                    <!-- We do not display the type because we don't want the user to be bothered with that information if he has no section or note. -->
+                                    <field name="display_type" invisible="1"/>
+                                    <field name="product_id" />
+                                    <field name="design_id"/>
+                                    <field name="check_design" invisible="True"/>
+                                    <field name="child_design_id" attrs="{'required': [('check_design', '=', True)]}"/>
+                                    <field name="child_image" widget="image" width="40" height="40"/>
+                                    <field name="quality_id"/>
+                                    <!--                                    <field name="delivery_confirm"/>-->
+                                    <field name="color_0" optional="hide"/>
+                                    <field name="color_1"/>
+                                    <field name="color_1d" optional="hide"/>
+                                    <field name="color_1r" optional="hide"/>
+                                    <field name="color_1l" optional="hide"/>
+                                    <field name="color_2"/>
+                                    <field name="color_3"/>
+                                    <field name="color_3l" optional="hide"/>
+                                    <field name="color_3d" optional="hide"/>
+                                    <field name="color_4"/>
+                                    <field name="color_4l" optional="hide"/>
+                                    <field name="color_5"/>
+                                    <field name="color_5l" optional="hide"/>
+                                    <field name="color_6"/>
+                                    <field name="color_6d" optional="hide"/>
+                                    <field name="color_6l" optional="hide"/>
+                                    <field name="color_6m" optional="hide"/>
+                                    <field name="color_7" optional="hide"/>
+                                    <field name="color_7l" optional="hide"/>
+                                    <field name="color_8" optional="hide"/>
+                                    <field name="color_9" optional="hide"/>
+                                    <field name="color_10" optional="hide"/>
+                                    <field name="color_10d" optional="hide"/>
+                                    <field name="color_11" optional="hide"/>
+                                    <field name="color_11l" optional="hide"/>
+                                    <field name="color_11r" optional="hide"/>
+                                    <field name="color_12" optional="hide"/>
+                                    <field name="color_12r" optional="hide"/>
+                                    <field name="color_13" optional="hide"/>
+                                    <field name="color_13l" optional="hide"/>
+                                    <field name="color_14" optional="hide"/>
+                                    <field name="color_14d" optional="hide"/>
+                                    <field name="color_15" optional="hide"/>
+                                    <field name="color_16" optional="hide"/>
+                                    <field name="color_17" optional="hide"/>
+                                    <field name="color_17r" optional="hide"/>
+                                    <field name="color_18" optional="hide"/>
+                                    <field name="color_19" optional="hide"/>
+                                    <field name="color_20" optional="hide"/>
+                                    <field name="color_21" optional="hide"/>
+                                    <field name="color_22" optional="hide"/>
+                                    <field name="color_23" optional="hide"/>
+                                    <field name="color_24" optional="hide"/>
+                                    <field name="color_25" optional="hide"/>
+                                    <field name="color_26" optional="hide"/>
+                                    <field name="color_27" optional="hide"/>
+                                    <field name="color_28" optional="hide"/>
+                                    <field name="color_29" optional="hide"/>
+                                    <field name="color_30" optional="hide"/>
+                                    <field name="color_31" optional="hide"/>
+                                    <field name="color_32" optional="hide"/>
+                                    <field name="color_33" optional="hide"/>
+                                    <field name="color_34" optional="hide"/>
+                                    <field name="color_35" optional="hide"/>
+                                    <field name="color_36" optional="hide"/>
+                                    <field name="color_37" optional="hide"/>
+                                    <field name="color_38" optional="hide"/>
+                                    <field name="color_39" optional="hide"/>
+                                    <field name="color_40" optional="hide"/>
+                                    <field name="color_41" optional="hide"/>
+                                    <field name="color_42" optional="hide"/>
+                                    <field name="color_43" optional="hide"/>
+                                    <field name="color_44" optional="hide"/>
+                                    <field name="color_45" optional="hide"/>
+                                    <field name="color_46" optional="hide"/>
+                                    <field name="color_47" optional="hide"/>
+                                    <field name="color_48" optional="hide"/>
+                                    <field name="total_qty" force_save="True"/>
+                                    <field name="square_foot" force_save="True"/>
+                                    <field name="price_unit" force_save="True"/>
+                                    <!--<field name="discount" force_save="True"/>-->
+                                    <field name="total_price" force_save="True"/>
+                                    <field name="image" widget="image" width="40px" height="40px"/>
+                                </tree>
+
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+
+                <xpath expr="//field[@name='color_line_id']" position="after">
+                    <div class="row">
+                        <div class="col-4 offset-8 text-right">
+                            <field name="total_price" force_save="True"/>
+                        </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
