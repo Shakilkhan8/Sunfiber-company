@@ -15,6 +15,12 @@
                                             <h6 style="font-style:bold;  font-size:20px; font-family: 'Times New Roman', Times, serif;">
                                                 <b><t t-esc="product_name"/></b>
                                             </h6>
+                                            <table width="100%" class="text-center">
+                                                <tr><td><span><b>Width:</b></span> <span><t t-esc="carpet_width" t-options='{"widget": "float", "precision": 2}'/></span></td></tr>
+                                                <tr><td><span><b>Length:</b></span><span><t t-esc="carpet_length" t-options='{"widget": "float", "precision": 2}'/></span></td></tr>
+                                                <tr><td><span><b>Batch Number:</b></span> <span><t t-esc="batch_number"/></span></td></tr>
+                                            </table>
+
                                         </div>
                                     </div>
                                     <div class="row">
