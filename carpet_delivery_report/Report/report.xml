@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="capet_delivery_repoet_id"
+                   model="stock.picking"
+                   report_type="qweb-pdf"
+                   string="Packing List"
+                   name="carpet_delivery_report.carpet_delivery_report"
+                   file="carpet_delivery_report.carpet_delivery_report"
+               />
+
+
+    </data>
+</odoo>

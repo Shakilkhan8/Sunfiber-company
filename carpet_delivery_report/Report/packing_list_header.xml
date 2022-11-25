@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="packing_list_report_id">
+            <t t-set="company" t-value="user.company_id"/>
+
+            <!--					<div class="header" >-->
+
+            <div class="header ">
+                <!--                         header of the report-->
+
+            </div>
+
+            <div class="footer">
+
+            </div>
+        </template>
+
+    </data>
+</odoo>
