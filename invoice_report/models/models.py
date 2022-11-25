@@ -24,7 +24,7 @@ class InvoiceReportInheritModel(models.Model):
                         'design': line.product_id.categ_id.name,
                         'price': line.price_unit,
                         'quantity': line.sqf,
-                        'sqf': line.sqf,
+                        'sqf': line.quantity,
                         'amount': line.price_subtotal,
                         'grade': line.product_id.carpet_grade_id.id,
                     })
@@ -38,7 +38,7 @@ class InvoiceReportInheritModel(models.Model):
                    'design': line.product_id.categ_id.name,
                    'price': line.price_unit,
                    'quantity': line.sqf,
-                   'sqf': line.sqf,
+                   'sqf': line.quantity,
                    'amount': line.price_subtotal,
                    'grade': line.product_id.carpet_grade_id.id,
                })
