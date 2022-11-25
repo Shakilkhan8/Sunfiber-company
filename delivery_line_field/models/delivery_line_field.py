@@ -14,6 +14,8 @@ class StockMoveInherit(models.Model):
     length = fields.Float('Length')
     width = fields.Float('Width')
     color = fields.Char('Color')
+    bales = fields.Float('Bales')
+
 
 
 
