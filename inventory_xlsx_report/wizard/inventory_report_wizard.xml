@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inventory_report_wizard_id" model="ir.ui.view">
+            <field name="name">Inventory Report Wizard</field>
+            <field name="model">inventory.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="_form">
+                    <sheet>
+                        <group>
+                            <field name="design_id" widget="many2many_tags" />
+                        </group>
+                        <footer>
+                            <button type="object" name="inventory_report_values"  string="Print xlsx Report" class="oe_highlight"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="inventory_report_action_id" model="ir.actions.act_window">
+            <field name="name">Inventory Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">inventory.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="inventory_report_menu_item_id" name="Inventory xlsx Report" action="inventory_report_action_id" parent="stock.menu_stock_config_settings"/>
+
+    </data>
+</odoo>

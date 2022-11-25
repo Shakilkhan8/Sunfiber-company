@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+                <report
+                    id="inventory_report_action_id"
+                    model="inventory.report.wizard"
+                    report_type="xlsx"
+                    string="LABEL"
+                    name="inventory_xlsx_report.xlsx_report_id"
+                    file="inventory_xlsx_report.xlsx_report_id"
+                />
+
+
+    </data>
+</odoo>
