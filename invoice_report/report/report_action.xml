@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <!-- QWeb Reports -->
+       <!-- NAME & FILE_NAME should be the same -->
+               <report
+                   id="invoice_report_id"
+                   model="account.move"
+                   report_type="qweb-pdf"
+                   string="Bill Report"
+                   name="invoice_report.invoice_report_template_id"
+                   file="invoice_report.invoice_report_template_id"
+               />
+
+         <report
+                   id="invoice_report_id"
+                   model="account.move"
+                   report_type="qweb-pdf"
+                   string="Bill Report"
+                   name="invoice_report.invoice_report_template_id"
+                   file="invoice_report.invoice_report_template_id"
+               />
+
+
+    </data>
+</odoo>
