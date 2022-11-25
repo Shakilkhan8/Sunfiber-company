@@ -215,7 +215,6 @@
                                     <field name="total_qty" force_save="True"/>
                                     <field name="square_foot" force_save="True"/>
                                     <field name="price_unit" force_save="True"/>
-                                    <field name="discount" force_save="True"/>
                                     <field name="total_price" force_save="True"/>
                                     <field name="image" widget="image" width="40px" height="40px"/>
                                 </tree>
