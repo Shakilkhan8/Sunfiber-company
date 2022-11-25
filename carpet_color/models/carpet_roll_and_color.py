@@ -40,7 +40,36 @@ class CarpetColorModel(models.Model):
     # calculation of square feet in sale order line on the base of rolls and square feet formulla
     @api.onchange('order_line')
     def _onchange_oder_line(self):
+        rec_list = []
         for rec in self.order_line:
+            # giving same price to all product having same quality and design
+
+            if self.env.user.check_company:
+                if rec_list:
+                    exist_with = list(filter(lambda item: item['quality_id'] == rec.quality_id.id and item[
+                        'grade_id'] == rec.product_id.carpet_grade_id.id and item['design_id'] == rec.design_id.id,
+                                             rec_list))
+                    if exist_with:
+                        rec.price_unit = exist_with[0]['price']
+                        rec.price_subtotal = exist_with[0]['price_subtotal']
+                    else:
+                        rec_list.append({
+                            'quality_id': rec.quality_id.id,
+                            'design_id': rec.design_id.id,
+                            'grade_id': rec.product_id.carpet_grade_id.id,
+                            'price': rec.price_unit,
+                            'price_subtotal': rec.price_unit * rec.product_uom_qty
+
+                        })
+                else:
+                    rec_list.append({
+                        'quality_id': rec.quality_id.id,
+                        'design_id': rec.design_id.id,
+                        'grade_id': rec.product_id.carpet_grade_id.id,
+                        'price': rec.price_unit,
+                        'price_subtotal': rec.price_unit * rec.product_uom_qty
+                    })
+
             if self.env.user.check_company:
                 rec.quality_id = rec.product_id.product_tmpl_id.carpet_quality_id.id
                 rec.design_id = rec.product_id.product_tmpl_id.categ_id.id
@@ -59,9 +88,6 @@ class CarpetColorModel(models.Model):
         for line in self.color_line_id:
             total_roll += line.total_qty
         self.total_roll = total_roll
-
-
-
 
 
 class CarpetColorline(models.Model):
@@ -156,53 +182,53 @@ class CarpetColorline(models.Model):
     color_51 = fields.Integer("51")
     color_52 = fields.Integer("52")
     color_53 = fields.Integer("53")
-    color_54= fields.Integer("54")
-    color_55= fields.Integer("55")
-    color_56= fields.Integer("56")
-    color_57= fields.Integer("57")
-    color_58= fields.Integer("58")
-    color_59= fields.Integer("59")
-    color_60= fields.Integer("60")
-    color_61= fields.Integer("61")
-    color_62= fields.Integer("62")
-    color_63= fields.Integer("63")
-    color_64= fields.Integer("64")
-    color_65= fields.Integer("65")
-    color_66= fields.Integer("66")
-    color_67= fields.Integer("67")
-    color_68= fields.Integer("68")
-    color_69= fields.Integer("69")
-    color_70= fields.Integer("70")
-    color_71= fields.Integer("71")
-    color_72= fields.Integer("72")
-    color_73= fields.Integer("73")
-    color_74= fields.Integer("74")
-    color_75= fields.Integer("75")
-    color_76= fields.Integer("76")
-    color_77= fields.Integer("77")
-    color_78= fields.Integer("78")
-    color_79= fields.Integer("79")
-    color_80= fields.Integer("80")
-    color_81= fields.Integer("81")
-    color_82= fields.Integer("82")
-    color_83= fields.Integer("83")
-    color_84= fields.Integer("84")
-    color_85= fields.Integer("85")
-    color_86= fields.Integer("86")
-    color_87= fields.Integer("87")
-    color_88= fields.Integer("88")
-    color_89= fields.Integer("89")
-    color_90= fields.Integer("90")
-    color_91= fields.Integer("91")
-    color_92= fields.Integer("92")
-    color_93= fields.Integer("93")
-    color_94= fields.Integer("94")
-    color_95= fields.Integer("95")
-    color_96= fields.Integer("96")
-    color_97= fields.Integer("97")
-    color_98= fields.Integer("98")
-    color_99= fields.Integer("99")
-    color_100= fields.Integer("100")
+    color_54 = fields.Integer("54")
+    color_55 = fields.Integer("55")
+    color_56 = fields.Integer("56")
+    color_57 = fields.Integer("57")
+    color_58 = fields.Integer("58")
+    color_59 = fields.Integer("59")
+    color_60 = fields.Integer("60")
+    color_61 = fields.Integer("61")
+    color_62 = fields.Integer("62")
+    color_63 = fields.Integer("63")
+    color_64 = fields.Integer("64")
+    color_65 = fields.Integer("65")
+    color_66 = fields.Integer("66")
+    color_67 = fields.Integer("67")
+    color_68 = fields.Integer("68")
+    color_69 = fields.Integer("69")
+    color_70 = fields.Integer("70")
+    color_71 = fields.Integer("71")
+    color_72 = fields.Integer("72")
+    color_73 = fields.Integer("73")
+    color_74 = fields.Integer("74")
+    color_75 = fields.Integer("75")
+    color_76 = fields.Integer("76")
+    color_77 = fields.Integer("77")
+    color_78 = fields.Integer("78")
+    color_79 = fields.Integer("79")
+    color_80 = fields.Integer("80")
+    color_81 = fields.Integer("81")
+    color_82 = fields.Integer("82")
+    color_83 = fields.Integer("83")
+    color_84 = fields.Integer("84")
+    color_85 = fields.Integer("85")
+    color_86 = fields.Integer("86")
+    color_87 = fields.Integer("87")
+    color_88 = fields.Integer("88")
+    color_89 = fields.Integer("89")
+    color_90 = fields.Integer("90")
+    color_91 = fields.Integer("91")
+    color_92 = fields.Integer("92")
+    color_93 = fields.Integer("93")
+    color_94 = fields.Integer("94")
+    color_95 = fields.Integer("95")
+    color_96 = fields.Integer("96")
+    color_97 = fields.Integer("97")
+    color_98 = fields.Integer("98")
+    color_99 = fields.Integer("99")
+    color_100 = fields.Integer("100")
 
     total_qty = fields.Integer('Total qty', compute='_compute_total_roll')
     price_unit = fields.Float('Price', store=True)
@@ -228,7 +254,15 @@ class CarpetColorline(models.Model):
         else:
             self.check_design = False
 
-    @api.depends('color_0','color_1','color_1d','color_1r','color_1l','color_2','color_3','color_3l','color_3d','color_4','color_4l','color_5','color_5l','color_6','color_6d','color_6m','color_6l','color_7','color_7l','color_7r','color_8','color_9','color_10','color_10d','color_11r','color_11l','color_12','color_12r','color_13','color_13l','color_14','color_14d','color_15','color_16','color_17','color_17r','color_18','color_19','color_20','color_21','color_22','color_23','color_24','color_25','color_26','color_27','color_28','color_29','color_30','color_31','color_32','color_33','color_34','color_35','color_36','color_37','color_38','color_39','color_40','color_41','color_42','color_43','color_44','color_45','color_46','color_47','color_48',
+    @api.depends('color_0', 'color_1', 'color_1d', 'color_1r', 'color_1l', 'color_2', 'color_3', 'color_3l', 'color_3d',
+                 'color_4', 'color_4l', 'color_5', 'color_5l', 'color_6', 'color_6d', 'color_6m', 'color_6l', 'color_7',
+                 'color_7l', 'color_7r', 'color_8', 'color_9', 'color_10', 'color_10d', 'color_11r', 'color_11l',
+                 'color_12', 'color_12r', 'color_13', 'color_13l', 'color_14', 'color_14d', 'color_15', 'color_16',
+                 'color_17', 'color_17r', 'color_18', 'color_19', 'color_20', 'color_21', 'color_22', 'color_23',
+                 'color_24', 'color_25', 'color_26', 'color_27', 'color_28', 'color_29', 'color_30', 'color_31',
+                 'color_32', 'color_33', 'color_34', 'color_35', 'color_36', 'color_37', 'color_38', 'color_39',
+                 'color_40', 'color_41', 'color_42', 'color_43', 'color_44', 'color_45', 'color_46', 'color_47',
+                 'color_48',
                  'color_49',
                  'color_50',
                  'color_51',
@@ -284,7 +318,7 @@ class CarpetColorline(models.Model):
                  )
     def _compute_total_roll(self):
         for line in self:
-            line.total_qty= line.color_0 + line.color_1 + line.color_2 + line.color_3 + line.color_4 + line.color_5 + line.color_6 + line.color_7 + line.color_8 + line.color_9 + line.color_10 + line.color_11 + line.color_12 + line.color_13 + line.color_14 + line.color_15 + line.color_16 + line.color_17 + line.color_18 + line.color_19 + line.color_20 + line.color_21 + line.color_22 + line.color_23 + line.color_24 + line.color_25 + line.color_26 + line.color_27 + line.color_28 + line.color_29 + line.color_30 + line.color_31 + line.color_32 + line.color_33 + line.color_34 + line.color_35 + line.color_36 + line.color_37 + line.color_38 + line.color_39 + line.color_40 + line.color_41 + line.color_42 + line.color_43 + line.color_44 + line.color_45 + line.color_46 + line.color_47 + line.color_48 + line.color_49 + line.color_50 + line.color_51 + line.color_52 + line.color_53 + line.color_54 + line.color_55 + line.color_56 + line.color_57 + line.color_58 + line.color_59 + line.color_60 + line.color_61 + line.color_62 + line.color_63 + line.color_64 + line.color_65 + line.color_66 + line.color_67 + line.color_68 + line.color_69 + line.color_70 + line.color_71 + line.color_72 + line.color_73 + line.color_74 + line.color_75 + line.color_76 + line.color_77 + line.color_78 + line.color_79 + line.color_80 + line.color_81+ line.color_82 + line.color_83 + line.color_84 + line.color_85 + line.color_86 + line.color_87 + line.color_88 + line.color_89 + line.color_90 + line.color_91 + line.color_91 + line.color_92 + line.color_94 + line.color_95 + line.color_96 + line.color_97 + line.color_98 + line.color_99 + line.color_100 + line.color_1d + line.color_1l + line.color_1r + line.color_3d + line.color_3l + line.color_4l + line.color_5l + line.color_6l + line.color_6d + line.color_6m + line.color_7l + line.color_7r + line.color_10d + line.color_11l + line.color_11r + line.color_12r + line.color_13l + line.color_14d + line.color_17r
+            line.total_qty = line.color_0 + line.color_1 + line.color_2 + line.color_3 + line.color_4 + line.color_5 + line.color_6 + line.color_7 + line.color_8 + line.color_9 + line.color_10 + line.color_11 + line.color_12 + line.color_13 + line.color_14 + line.color_15 + line.color_16 + line.color_17 + line.color_18 + line.color_19 + line.color_20 + line.color_21 + line.color_22 + line.color_23 + line.color_24 + line.color_25 + line.color_26 + line.color_27 + line.color_28 + line.color_29 + line.color_30 + line.color_31 + line.color_32 + line.color_33 + line.color_34 + line.color_35 + line.color_36 + line.color_37 + line.color_38 + line.color_39 + line.color_40 + line.color_41 + line.color_42 + line.color_43 + line.color_44 + line.color_45 + line.color_46 + line.color_47 + line.color_48 + line.color_49 + line.color_50 + line.color_51 + line.color_52 + line.color_53 + line.color_54 + line.color_55 + line.color_56 + line.color_57 + line.color_58 + line.color_59 + line.color_60 + line.color_61 + line.color_62 + line.color_63 + line.color_64 + line.color_65 + line.color_66 + line.color_67 + line.color_68 + line.color_69 + line.color_70 + line.color_71 + line.color_72 + line.color_73 + line.color_74 + line.color_75 + line.color_76 + line.color_77 + line.color_78 + line.color_79 + line.color_80 + line.color_81 + line.color_82 + line.color_83 + line.color_84 + line.color_85 + line.color_86 + line.color_87 + line.color_88 + line.color_89 + line.color_90 + line.color_91 + line.color_91 + line.color_92 + line.color_94 + line.color_95 + line.color_96 + line.color_97 + line.color_98 + line.color_99 + line.color_100 + line.color_1d + line.color_1l + line.color_1r + line.color_3d + line.color_3l + line.color_4l + line.color_5l + line.color_6l + line.color_6d + line.color_6m + line.color_7l + line.color_7r + line.color_10d + line.color_11l + line.color_11r + line.color_12r + line.color_13l + line.color_14d + line.color_17r
             line.square_foot = line.total_qty * 36 * 3.281 * 12
 
     @api.depends('price_unit', 'square_foot')
@@ -292,7 +326,7 @@ class CarpetColorline(models.Model):
         for line in self:
             line.total_price = line.square_foot * line.price_unit
 
-    @api.onchange('design_id','quality_id')
+    @api.onchange('design_id', 'quality_id')
     def _onchange_des_qual(self):
         # if both design and quality selected then we concatenate the both to create product name
 
@@ -308,11 +342,11 @@ class CarpetColorline(models.Model):
     def _onchange_design_quality(self):
         # if both design and quality selected then we concatenate the both to create product name
         for line in self:
-                if line.child_design_id and line.design_id and line.quality_id:
-                    line.product_id = line.design_id.name + " / " + str(
-                        line.child_design_id.name) + " / " + line.quality_id.name
-                else:
-                    line.product_id = ""
+            if line.child_design_id and line.design_id and line.quality_id:
+                line.product_id = line.design_id.name + " / " + str(
+                    line.child_design_id.name) + " / " + line.quality_id.name
+            else:
+                line.product_id = ""
 
 
 class InheritSaleOrderLine(models.Model):
@@ -331,9 +365,13 @@ class InheritSaleOrderLine(models.Model):
             if self.env.user.check_company:
                 line.price_subtotal = line.price_unit * line.square_foot
 
-
     def calculate_bales(self, price_unit, product_qty):
         return price_unit * product_qty
+
+    @api.onchange('product_uom_qty')
+    def _onchange_qty(self):
+        for line in self:
+            line.bales = line.product_uom_qty / 240
 
     @api.depends('product_uom_qty', 'discount', 'price_unit', 'tax_id')
     def _compute_amount(self):
@@ -346,15 +384,15 @@ class InheritSaleOrderLine(models.Model):
                                             product=line.product_id, partner=line.order_id.partner_shipping_id)
             subtotal = 0.0
             if not self.env.user.check_company:
-                    subtotal = self.calculate_bales(line.price_unit, line.product_uom_qty)
+                subtotal = self.calculate_bales(line.price_unit, line.product_uom_qty)
             else:
-               subtotal = line.price_unit * line.square_foot
+                subtotal = line.price_unit * line.square_foot
 
             line.update({
                 'price_tax': taxes['total_included'] - taxes['total_excluded'],
                 'price_total': taxes['total_included'],
                 'price_subtotal': subtotal,
-                'bales': (line.product_uom_qty/240)
+
             })
             if self.env.context.get('import_file', False) and not self.env.user.user_has_groups(
                     'account.group_account_manager'):
