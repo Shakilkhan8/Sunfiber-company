@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_carpet_barcode_id, carpet.barcode_name,model_carpet_barcode,base.group_user,1,1,1,1
+access_barcode_seq_id, barcode.sequence,model_barcode_sequence_number,base.group_user,1,1,1,1
