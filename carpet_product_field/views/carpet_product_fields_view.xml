@@ -20,6 +20,8 @@
                     <field name="carpet_width"/>
                     <field name="carpet_grade_id"/>
                     <field name="carpet_quality_id"/>
+                    <field name="batch_number"/>
+
                 </xpath>
 
             </field>
