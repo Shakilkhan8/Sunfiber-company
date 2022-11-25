@@ -1,0 +1,35 @@
+<odoo>
+    <record id="order_sheet_confirmation_report" model="ir.actions.report">
+        <field name="name">Order Sheet</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">order_sheet_confirmation.carpet_color_report</field>
+        <field name="report_file">order_sheet_confirmation.carpet_color_report</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name"></field>
+    </record>
+
+    <!-- QWeb Reports -->
+    <!-- NAME & FILE_NAME should be the same -->
+            <report
+                id="order_booking_report_with_price_id"
+                model="sale.order"
+                report_type="qweb-pdf"
+                string="Order Sheet With Bill"
+                name="order_sheet_confirmation.order_booking_with_price"
+                file="order_sheet_confirmation.order_booking_with_price"
+            />
+
+    <!-- QWeb Reports -->
+    <!-- NAME & FILE_NAME should be the same -->
+            <report
+                id="manual_packing_list_report_action_id"
+                model="sale.order"
+                report_type="qweb-pdf"
+                string="Manual Packing List"
+                name="order_sheet_confirmation.manual_packing_list_id"
+                file="order_sheet_confirmation.manual_packing_list_id"
+            />
+
+</odoo>

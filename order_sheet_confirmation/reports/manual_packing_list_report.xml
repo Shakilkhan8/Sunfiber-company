@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="manual_packing_list_id">
+            <t t-call="web.html_container">
+                <t t-call="order_sheet_confirmation.delivery_header_id"/>
+                <t t-call="web.basic_layout">
+
+                    <div class="page">
+
+                        <div class="row">
+                                <table style="border:1px solid gray">
+                                    <thead style="border:1px solid gray">
+                                        <th width="5%" style="border:1px solid gray" class="text-center">SR.</th>
+                                        <th width="30%" style="border:1px solid gray" class="text-center">Product</th>
+                                        <th width="20%" style="border:1px solid gray" class="text-center">Design</th>
+                                        <th width="15%" style="border:1px solid gray" class="text-center">Quality</th>
+                                        <th width="5%" style="border:1px solid gray" class="text-center">Color</th>
+                                        <th width="10%" style="border:1px solid gray" class="text-center">Length</th>
+                                        <th width="10%" style="border:1px solid gray" class="text-center">Width</th>
+                                        <th width="5%" style="border:1px solid gray" class="text-center">Grade</th>
+                                    </thead>
+                                    <tbody>
+                                        <t t-set="total_roll" t-value="0"/>
+                                        <t t-set="ser" t-value="0"/>
+
+                                        <t t-foreach="data" t-as="p">
+
+                                            <t t-set="ser" t-value="ser+1"/>
+                                            <t t-set="total_roll" t-value="total_roll+1"/>
+                                            <tr>
+                                                <td width="5%" height="30" style="border:1px solid gray" class="text-center">
+                                                    <t t-esc="ser"/>
+                                                </td>
+                                                <td width="30%" height="30" style="border:1px solid gray" class="text-center">
+                                                    <t t-esc="p['design_name']"/>
+                                                </td>
+                                                <td width="20%" height="30" style="border:1px solid gray" class="text-center">
+                                                    <t t-esc="p['child_design']"/>
+                                                </td>
+                                                <td width="15%" height="30" style="border:1px solid gray" class="text-center">
+                                                    <t t-esc="p['quality_id']"/>
+                                                </td>
+                                                <td width="5%" style="border:1px solid gray" class="text-center">
+                                                    <t t-esc="p['color']"/>
+                                                </td>
+                                                <td width="5%" height="30" style="border:1px solid gray" class="text-center"></td>
+                                                <td width="5%" height="30" style="border:1px solid gray" class="text-center"></td>
+                                                <td width="5%" height="30" style="border:1px solid gray" class="text-center"></td>
+                                            </tr>
+
+                                        </t>
+                                        <tr>
+                                            <td style="border:1px solid gray" colspan="2"><b>Total Rolls: <t t-esc="total_roll"/> </b></td>
+                                            <td style="border:1px solid gray" colspan="3" class="text-center"><b>Total Length:</b></td>
+                                            <td style="border:1px solid gray" colspan="" ><b></b></td>
+                                            <td style="border:1px solid gray" colspan="" ><b></b></td>
+                                            <td style="border:1px solid gray" colspan=""></td>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <span><b>Signature ________________</b></span>
+                                <br/>
+                                <br/>
+                                <t t-if="customer_note">
+                                <p><b>Customer Note:</b><t t-esc="customer_note" /></p>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                </t>
+            </t>
+
+        </template>
+
+
+    </data>
+</odoo>

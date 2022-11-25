@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_header_with_price_id">
+            <div class="header ">
+                <h5 class="text-center mt-1">
+					Order Sheet With Price
+                </h5>
+                <div class="container">
+                        <div class="row" style="border: 1px solid #e1e3e6;" >
+                            <div class="col-12 text-center">
+                               <table width="100%"  style="text-align:center">
+                                   <tr class="text-center">
+                                       <td>
+                                           <b>Customer :</b>
+                                           <t t-esc="customer_name"/>
+                                           <t t-if="sub_customer">
+                                               (<t t-esc="sub_customer"/>)
+                                           </t>
+                                       </td>
+
+                                   </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-6">
+                                <strong style="margin-left:-10px;">Order Receive Date: </strong>
+                                <span style="margin-left:10px;"><t t-esc="order_date" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/> </span>
+                            </div>
+
+                            <div class="col-6 text-right">
+                                <p  class="text-right ml-4">
+                                    <b>Delivery Terms: </b>
+                                    <t t-esc="delivery_confirm" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="footer">
+
+            </div>
+        </template>
+
+    </data>
+</odoo>

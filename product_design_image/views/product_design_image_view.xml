@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <!-- Inherit Form View to Modify it -->
+       <record id="product_image_form_inherit_id" model="ir.ui.view">
+           <field name="name">Product Design Image</field>
+           <field name="model">product.category</field>
+           <field name="inherit_id" ref="product.product_category_form_view"/>
+           <field name="arch" type="xml">
+
+               <xpath expr="//div[@class='oe_title']" position="replace">
+                   <!-- Add your fields or attributes here -->
+                   <div class="container">
+                       <div class="row">
+                           <div class="col-6">
+                               <field name="name" placeholder="Product Design Name"/>
+                           </div>
+                           <div class="col-6 text-right">
+                               <field name="design_image" widget="image" width="70" height="70"/>
+                           </div>
+                       </div>
+                   </div>
+
+               </xpath>
+
+           </field>
+       </record>
+
+    </data>
+</odoo>

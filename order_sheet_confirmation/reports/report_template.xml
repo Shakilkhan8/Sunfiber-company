@@ -1,0 +1,849 @@
+<odoo>
+    <template id="carpet_color_report">
+        <t t-call="web.html_container">
+             <t t-call="web.basic_layout">
+                 <div class="header mt-2">
+                     <p class="text-center" style="font-size:18px"><b>ORDER SHEET</b></p>
+                     <p style="font-size:18px" class="text-center">
+                         <strong><t t-esc="number"/></strong>
+                     </p>
+                 </div>
+                <div class="page">
+                    <div class="container">
+                        <div class="row mt-3" style="border: 1px solid #e1e3e6;" >
+                            <div class="col-12 text-center">
+                               <table width="100%"  style="text-align:center">
+                                    <tr class="text-center">
+                                        <td><b>Customer :</b> <t t-esc="customer_name"/> <t t-if="sub_customer">
+                                        (<t t-esc="sub_customer"/>)
+                                    </t></td>
+
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row mt-1" style="margin-top:190px">
+                            <div class="col-6">
+                                <strong style="margin-left:-10px;">Order Receive Date: </strong>
+                                <span style="margin-left:10px;"><t t-esc="order_date" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/> </span>
+                            </div>
+                            <div class="col-6 text-right">
+                                <p  class="text-right ml-4">
+                                    <b>Delivery Terms: </b>
+                                    <t t-esc="delivery_confirm" />
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <t t-set="total_price" t-value="0"/>
+                    <t t-set="total_rolls" t-value="0"/>
+                    <br/>
+                    <table class="table tbl-sm table-bordered ">
+                        <thead>
+                            <th>Design</th>
+                            <th>Color</th>
+                            <th>Image</th>
+                            <th>Rolls</th>
+                        </thead>
+                        <t t-set="total_price" t-value="0"/>
+                        <t t-set="total_feet" t-value="0"/>
+                        <t t-set="total_rolls" t-value="0"/>
+                        <t t-set="total_discount" t-value="0"/>
+                        <t t-set="total_rate" t-value="0"/>
+                        <t t-foreach="data" t-as="p">
+                        <t t-set="total_price" t-value="total_price + p['total_price']"/>
+                        <t t-set="total_rolls" t-value="total_rolls + p['total_qty']"/>
+                        <t t-set="total_feet" t-value="total_feet + p['square_foot']"/>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" class="text-center"></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="3" class="text-center"><b><t t-esc="p['product_name']"/></b></td>
+                                <td rowspan="2"></td>
+                                <!--<td rowspan="2"></td>
+                                <td rowspan="2"></td>
+                                <td rowspan="2"></td>-->
+                            </tr>
+
+                            <tr>
+                                <td height="38">Colors</td>
+                                <td rowspan="2">
+                                     <table class="table table-bordered" width="100%" style="margin-top:2px">
+                                        <thead >
+                                            <t t-if="p['color_0'] !=0">
+                                           <th  class="text-center"><b>0</b></th>
+                                           </t>
+                                           <t t-if="p['color_1'] !=0">
+                                           <th   class="text-center" ><b>1</b></th>
+                                           </t>
+                                             <t t-if="p['color_1d'] !=0">
+                                           <th  class="text-center"  ><b>1d</b></th>
+                                           </t>
+                                             <t t-if="p['color_1l'] !=0">
+                                           <th  class="text-center"  ><b>1L</b></th>
+                                           </t>
+                                            <t t-if="p['color_1r'] !=0">
+                                           <th  class="text-center"  ><b>1R</b></th>
+                                           </t>
+                                           <t t-if="p['color_2'] !=0">
+                                           <th  class="text-center" ><b>2</b></th>
+                                           </t>
+                                           <t t-if="p['color_3'] !=0">
+                                           <th   class="text-center" ><b>3</b></th>
+                                           </t>
+                                            <t t-if="p['color_3d'] !=0">
+                                           <th  class="text-center"  ><b>3D</b></th>
+                                           </t>
+                                           <t t-if="p['color_3l'] !=0">
+                                           <th  class="text-center"  ><b>3l</b></th>
+                                           </t>
+                                           <t t-if="p['color_4'] !=0">
+                                           <th  class="text-center"><b>4</b></th>
+                                           </t>
+                                            <t t-if="p['color_4l'] !=0">
+                                           <th  class="text-center"  ><b>4L</b></th>
+                                           </t>
+
+                                           <t t-if="p['color_5'] !=0">
+                                           <th  class="text-center"><b>5</b></th>
+                                           </t>
+                                            <t t-if="p['color_5l'] !=0">
+                                           <th  class="text-center"  ><b>5L</b></th>
+                                           </t>
+                                           <t t-if="p['color_6'] !=0">
+                                           <th  class="text-center"><b>6</b></th>
+                                           </t>
+                                             <t t-if="p['color_6d'] !=0">
+                                           <th  class="text-center"  ><b>6D</b></th>
+                                           </t>
+                                            <t t-if="p['color_6l'] !=0">
+                                           <th  class="text-center"  ><b>6L</b></th>
+                                           </t>
+                                           <t t-if="p['color_6m'] !=0">
+                                           <th  class="text-center"  ><b>6m</b></th>
+                                           </t>
+                                           <t t-if="p['color_7'] !=0">
+                                           <th  class="text-center"><b>7</b></th>
+                                           </t>
+                                            <t t-if="p['color_7l'] !=0">
+                                           <th  class="text-center"  ><b>7L</b></th>
+                                           </t>
+
+                                             <t t-if="p['color_7r'] !=0">
+                                           <th  class="text-center"  ><b>7R</b></th>
+                                           </t>
+
+                                           <t t-if="p['color_8'] !=0">
+                                           <th  class="text-center"><b>8</b></th>
+                                           </t>
+                                           <t t-if="p['color_9'] !=0">
+                                           <th  class="text-center" ><b>9</b></th>
+                                           </t>
+                                           <t t-if="p['color_10'] !=0">
+                                           <th  class="text-center" ><b>10</b></th>
+                                           </t>
+                                             <t t-if="p['color_10d'] !=0">
+                                           <th  class="text-center"  ><b>10D</b></th>
+                                           </t>
+                                           <t t-if="p['color_11'] !=0">
+                                           <th  class="text-center" ><b>11</b></th>
+                                           </t>
+                                            <t t-if="p['color_11r'] !=0">
+                                           <th  class="text-center"  ><b>11R</b></th>
+                                           </t>
+                                             <t t-if="p['color_11l'] !=0">
+                                           <th  class="text-center"  ><b>11L</b></th>
+                                           </t>
+                                           <t t-if="p['color_12'] !=0">
+                                           <th  class="text-center" ><b>12</b></th>
+                                           </t>
+                                            <t t-if="p['color_12r'] !=0">
+                                           <th  class="text-center"  ><b>12R</b></th>
+                                           </t>
+                                           <t t-if="p['color_13'] !=0">
+                                           <th  class="text-center" ><b>13</b></th>
+                                           </t>
+                                            <t t-if="p['color_13l'] !=0">
+                                           <th  class="text-center"  ><b>13L</b></th>
+                                           </t>
+                                           <t t-if="p['color_14'] !=0">
+                                           <th  class="text-center"  ><b>14</b></th>
+                                           </t>
+                                             <t t-if="p['color_14d'] !=0">
+                                           <th  class="text-center"  ><b>14D</b></th>
+                                           </t>
+                                           <t t-if="p['color_15'] !=0">
+                                           <th  class="text-center"  ><b>15</b></th>
+                                           </t>
+                                           <t t-if="p['color_16'] !=0">
+                                           <th  class="text-center"  ><b>16</b></th>
+                                           </t>
+                                           <t t-if="p['color_17'] !=0">
+                                           <th  class="text-center"  ><b>17</b></th>
+                                           </t>
+                                           <t t-if="p['color_17r'] !=0">
+                                           <th  class="text-center"  ><b>17R</b></th>
+                                           </t>
+                                           <t t-if="p['color_18'] !=0">
+                                           <th  class="text-center"  ><b>18</b></th>
+                                           </t>
+                                           <t t-if="p['color_19'] !=0">
+                                           <th  class="text-center"  ><b>19</b></th>
+                                           </t>
+                                           <t t-if="p['color_20'] !=0">
+                                           <th  class="text-center"  ><b>20</b></th>
+                                           </t>
+                                            <t t-if="p['color_21'] !=0">
+                                           <th  class="text-center"  ><b>21</b></th>
+                                           </t>
+                                            <t t-if="p['color_22'] !=0">
+                                           <th  class="text-center"  ><b>22</b></th>
+                                           </t>
+                                            <t t-if="p['color_23'] !=0">
+                                           <th  class="text-center"  ><b>23</b></th>
+                                           </t>
+                                            <t t-if="p['color_24'] !=0">
+                                           <th  class="text-center"  ><b>24</b></th>
+                                           </t>
+                                            <t t-if="p['color_25'] !=0">
+                                           <th  class="text-center"  ><b>25</b></th>
+                                           </t>
+                                            <t t-if="p['color_26'] !=0">
+                                           <th  class="text-center"  ><b>26</b></th>
+                                           </t>
+                                            <t t-if="p['color_27'] !=0">
+                                           <th  class="text-center"  ><b>27</b></th>
+                                           </t>
+                                            <t t-if="p['color_28'] !=0">
+                                           <th  class="text-center"  ><b>28</b></th>
+                                           </t>
+                                            <t t-if="p['color_29'] !=0">
+                                           <th  class="text-center"  ><b>29</b></th>
+                                           </t>
+                                            <t t-if="p['color_30'] !=0">
+                                           <th  class="text-center"  ><b>30</b></th>
+                                           </t>
+                                            <t t-if="p['color_31'] !=0">
+                                           <th  class="text-center"  ><b>31</b></th>
+                                           </t>
+                                            <t t-if="p['color_32'] !=0">
+                                           <th  class="text-center"  ><b>32</b></th>
+                                           </t>
+                                            <t t-if="p['color_33'] !=0">
+                                           <th  class="text-center"  ><b>33</b></th>
+                                           </t>
+                                            <t t-if="p['color_34'] !=0">
+                                           <th  class="text-center"  ><b>35</b></th>
+                                           </t>
+                                            <t t-if="p['color_35'] !=0">
+                                           <th  class="text-center"  ><b>35</b></th>
+                                           </t>
+                                            <t t-if="p['color_36'] !=0">
+                                           <th  class="text-center"  ><b>36</b></th>
+                                           </t>
+                                            <t t-if="p['color_37'] !=0">
+                                           <th  class="text-center"  ><b>37</b></th>
+                                           </t>
+                                            <t t-if="p['color_38'] !=0">
+                                           <th  class="text-center"  ><b>38</b></th>
+                                           </t>
+                                            <t t-if="p['color_39'] !=0">
+                                           <th  class="text-center"  ><b>39</b></th>
+                                           </t>
+                                            <t t-if="p['color_40'] !=0">
+                                           <th  class="text-center"  ><b>40</b></th>
+                                           </t>
+                                            <t t-if="p['color_41'] !=0">
+                                           <th  class="text-center"  ><b>41</b></th>
+                                           </t>
+                                            <t t-if="p['color_42'] !=0">
+                                           <th  class="text-center"  ><b>42</b></th>
+                                           </t>
+                                            <t t-if="p['color_43'] !=0">
+                                           <th  class="text-center"  ><b>43</b></th>
+                                           </t>
+                                            <t t-if="p['color_44'] !=0">
+                                           <th  class="text-center"  ><b>44</b></th>
+                                           </t>
+                                            <t t-if="p['color_45'] !=0">
+                                           <th  class="text-center"  ><b>45</b></th>
+                                           </t>
+                                            <t t-if="p['color_46'] !=0">
+                                           <th  class="text-center"  ><b>46</b></th>
+                                           </t>
+                                            <t t-if="p['color_47'] !=0">
+                                           <th  class="text-center"  ><b>47</b></th>
+                                           </t>
+                                            <t t-if="p['color_48'] !=0">
+                                           <th  class="text-center"  ><b>48</b></th>
+                                           </t>
+
+                                            <t t-if="p['color_49'] !=0">
+                                           <th  class="text-center"  ><b>49</b></th>
+                                           </t>
+                                            <t t-if="p['color_50'] !=0">
+                                           <th  class="text-center"  ><b>50</b></th>
+                                           </t>
+                                            <t t-if="p['color_51'] !=0">
+                                           <th  class="text-center"  ><b>51</b></th>
+                                           </t>
+
+                                            <t t-if="p['color_52'] !=0">
+                                           <th  class="text-center"  ><b>52</b></th>
+                                           </t>
+
+                                            <t t-if="p['color_53'] !=0">
+                                           <th  class="text-center"  ><b>53</b></th>
+                                           </t>
+                                            <t t-if="p['color_54'] !=0">
+                                           <th  class="text-center"  ><b>54</b></th>
+                                           </t>
+                                            <t t-if="p['color_55'] !=0">
+                                           <th  class="text-center"  ><b>55</b></th>
+                                           </t>
+                                            <t t-if="p['color_56'] !=0">
+                                           <th  class="text-center"  ><b>56</b></th>
+                                           </t>
+                                            <t t-if="p['color_57'] !=0">
+                                           <th  class="text-center"  ><b>57</b></th>
+                                           </t>
+                                            <t t-if="p['color_58'] !=0">
+                                           <th  class="text-center"  ><b>58</b></th>
+                                           </t>
+                                            <t t-if="p['color_59'] !=0">
+                                           <th  class="text-center"  ><b>59</b></th>
+                                           </t>
+                                            <t t-if="p['color_60'] !=0">
+                                           <th  class="text-center"  ><b>60</b></th>
+                                           </t>
+                                            <t t-if="p['color_61'] !=0">
+                                           <th  class="text-center"  ><b>61</b></th>
+                                           </t>
+                                            <t t-if="p['color_62'] !=0">
+                                           <th  class="text-center"  ><b>62</b></th>
+                                           </t>
+                                            <t t-if="p['color_63'] !=0">
+                                           <th  class="text-center"  ><b>63</b></th>
+                                           </t>
+                                            <t t-if="p['color_64'] !=0">
+                                           <th  class="text-center"  ><b>64</b></th>
+                                           </t>
+                                            <t t-if="p['color_65'] !=0">
+                                           <th  class="text-center"  ><b>65</b></th>
+                                           </t>
+                                            <t t-if="p['color_66'] !=0">
+                                           <th  class="text-center"  ><b>66</b></th>
+                                           </t>
+                                            <t t-if="p['color_67'] !=0">
+                                           <th  class="text-center"  ><b>67</b></th>
+                                           </t>
+                                            <t t-if="p['color_68'] !=0">
+                                           <th  class="text-center"  ><b>68</b></th>
+                                           </t>
+                                            <t t-if="p['color_69'] !=0">
+                                           <th  class="text-center"  ><b>69</b></th>
+                                           </t>
+                                            <t t-if="p['color_70'] !=0">
+                                           <th  class="text-center"  ><b>70</b></th>
+                                           </t>
+                                            <t t-if="p['color_71'] !=0">
+                                           <th  class="text-center"  ><b>71</b></th>
+                                           </t>
+                                            <t t-if="p['color_72'] !=0">
+                                           <th  class="text-center"  ><b>72</b></th>
+                                           </t>
+                                            <t t-if="p['color_73'] !=0">
+                                           <th  class="text-center"  ><b>73</b></th>
+                                           </t>
+                                            <t t-if="p['color_74'] !=0">
+                                           <th  class="text-center"  ><b>74</b></th>
+                                           </t>
+                                            <t t-if="p['color_75'] !=0">
+                                           <th  class="text-center"  ><b>75</b></th>
+                                           </t>
+                                            <t t-if="p['color_76'] !=0">
+                                           <th  class="text-center"  ><b>76</b></th>
+                                           </t>
+                                            <t t-if="p['color_77'] !=0">
+                                           <th  class="text-center"  ><b>77</b></th>
+                                           </t>
+                                            <t t-if="p['color_78'] !=0">
+                                           <th  class="text-center"  ><b>78</b></th>
+                                           </t>
+                                            <t t-if="p['color_79'] !=0">
+                                           <th  class="text-center"  ><b>79</b></th>
+                                           </t>
+                                            <t t-if="p['color_80'] !=0">
+                                           <th  class="text-center"  ><b>80</b></th>
+                                           </t>
+                                            <t t-if="p['color_81'] !=0">
+                                           <th  class="text-center"  ><b>81</b></th>
+                                           </t>
+                                            <t t-if="p['color_82'] !=0">
+                                           <th  class="text-center"  ><b>82</b></th>
+                                           </t>
+                                            <t t-if="p['color_83'] !=0">
+                                           <th  class="text-center"  ><b>83</b></th>
+                                           </t>
+                                            <t t-if="p['color_84'] !=0">
+                                           <th  class="text-center"  ><b>84</b></th>
+                                           </t>
+                                            <t t-if="p['color_85'] !=0">
+                                           <th  class="text-center"  ><b>85</b></th>
+                                           </t>
+                                            <t t-if="p['color_86'] !=0">
+                                           <th  class="text-center"  ><b>86</b></th>
+                                           </t>
+                                            <t t-if="p['color_87'] !=0">
+                                           <th  class="text-center"  ><b>87</b></th>
+                                           </t>
+                                            <t t-if="p['color_88'] !=0">
+                                           <th  class="text-center"  ><b>88</b></th>
+                                           </t>
+                                            <t t-if="p['color_89'] !=0">
+                                           <th  class="text-center"  ><b>89</b></th>
+                                           </t>
+                                            <t t-if="p['color_90'] !=0">
+                                           <th  class="text-center"  ><b>90</b></th>
+                                           </t>
+                                            <t t-if="p['color_91'] !=0">
+                                           <th  class="text-center"  ><b>91</b></th>
+                                           </t>
+                                            <t t-if="p['color_92'] !=0">
+                                           <th  class="text-center"  ><b>92</b></th>
+                                           </t>
+                                            <t t-if="p['color_93'] !=0">
+                                           <th  class="text-center"  ><b>93</b></th>
+                                           </t>
+                                            <t t-if="p['color_94'] !=0">
+                                           <th  class="text-center"  ><b>94</b></th>
+                                           </t>
+                                            <t t-if="p['color_95'] !=0">
+                                           <th  class="text-center"  ><b>95</b></th>
+                                           </t>
+                                            <t t-if="p['color_96'] !=0">
+                                           <th  class="text-center"  ><b>96</b></th>
+                                           </t>
+                                            <t t-if="p['color_97'] !=0">
+                                           <th  class="text-center"  ><b>97</b></th>
+                                           </t>
+                                            <t t-if="p['color_98'] !=0">
+                                           <th  class="text-center"  ><b>98</b></th>
+                                           </t>
+                                            <t t-if="p['color_99'] !=0">
+                                           <th  class="text-center"  ><b>99</b></th>
+                                           </t>
+                                            <t t-if="p['color_100'] !=0">
+                                           <th  class="text-center"  ><b>100</b></th>
+                                           </t>
+
+
+                                        </thead>
+                                         <tr height="29" >
+                                             <t t-if="p['color_0']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_0']"/></td>
+                                           </t>
+                                           <t t-if="p['color_1']!=0" >
+                                           <td  class="text-center"  ><t t-esc="p['color_1']"/></td>
+                                           </t>
+                                             <t t-if="p['color_1d']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_1d']"/></td>
+                                           </t>
+                                            <t t-if="p['color_1l']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_1l']"/></td>
+                                           </t>
+                                           <t t-if="p['color_1r']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_1r']"/></td>
+                                           </t>
+
+                                           <t t-if="p['color_2']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_2']"/></td>
+                                           </t>
+                                           <t t-if="p['color_3']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_3']"/></td>
+                                           </t>
+                                             <t t-if="p['color_3d']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_3d']"/></td>
+                                           </t>
+                                             <t t-if="p['color_3l']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_3l']"/></td>
+                                           </t>
+                                           <t t-if="p['color_4']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_4']"/></td>
+                                           </t>
+                                             <t t-if="p['color_4l']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_4l']"/></td>
+                                           </t>
+                                           <t t-if="p['color_5']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_5']"/></td>
+                                           </t>
+                                             <t t-if="p['color_5l']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_5l']"/></td>
+                                           </t>
+                                           <t t-if="p['color_6']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_6']"/></td>
+                                           </t>
+                                              <t t-if="p['color_6d']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_6d']"/></td>
+                                           </t>
+                                             <t t-if="p['color_6l']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_6l']"/></td>
+                                           </t>
+                                            <t t-if="p['color_6m']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_6m']"/></td>
+                                           </t>
+                                           <t t-if="p['color_7']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_7']"/></td>
+                                           </t>
+                                           <t t-if="p['color_7l']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_7l']"/></td>
+                                           </t>
+                                             <t t-if="p['color_7r']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_7r']"/></td>
+                                           </t>
+                                           <t t-if="p['color_8']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_8']"/></td>
+                                           </t>
+                                           <t t-if="p['color_9']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_9']"/></td>
+                                           </t>
+                                           <t t-if="p['color_10']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_10']"/></td>
+                                           </t>
+                                           <t t-if="p['color_10d']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_10d']"/></td>
+                                           </t>
+                                           <t t-if="p['color_11']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_11']"/></td>
+                                           </t>
+                                           <t t-if="p['color_11l']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_11l']"/></td>
+                                           </t>
+                                           <t t-if="p['color_11r']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_11r']"/></td>
+                                           </t>
+                                           <t t-if="p['color_12']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_12']"/></td>
+                                           </t>
+                                           <t t-if="p['color_12r']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_12r']"/></td>
+                                           </t>
+                                           <t t-if="p['color_13']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_13']"/></td>
+                                           </t>
+                                           <t t-if="p['color_13l']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_13l']"/></td>
+                                           </t>
+                                           <t t-if="p['color_14']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_14']"/></td>
+                                           </t>
+                                           <t t-if="p['color_14d']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_14d']"/></td>
+                                           </t>
+                                           <t t-if="p['color_15']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_15']"/></td>
+                                           </t>
+                                           <t t-if="p['color_16']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_16']"/></td>
+                                           </t>
+                                           <t t-if="p['color_17']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_17']"/></td>
+                                           </t>
+                                            <t t-if="p['color_17r']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_17r']"/></td>
+                                           </t>
+                                           <t t-if="p['color_18']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_18']"/></td>
+                                           </t>
+                                           <t t-if="p['color_19']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_19']"/></td>
+                                           </t>
+                                           <t t-if="p['color_20']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_20']"/></td>
+                                           </t>
+                                           <t t-if="p['color_21']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_21']"/></td>
+                                           </t>
+                                            <t t-if="p['color_22']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_22']"/></td>
+                                           </t>
+                                             <t t-if="p['color_23']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_23']"/></td>
+                                           </t>
+                                             <t t-if="p['color_24']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_24']"/></td>
+                                           </t>
+                                             <t t-if="p['color_25']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_26']"/></td>
+                                           </t>
+                                             <t t-if="p['color_26']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_26']"/></td>
+                                           </t>
+                                             <t t-if="p['color_27']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_27']"/></td>
+                                           </t>
+                                             <t t-if="p['color_28']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_28']"/></td>
+                                           </t>
+                                             <t t-if="p['color_29']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_29']"/></td>
+                                           </t>
+                                             <t t-if="p['color_30']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_30']"/></td>
+                                           </t>
+                                             <t t-if="p['color_31']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_31']"/></td>
+                                           </t>
+                                             <t t-if="p['color_32']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_32']"/></td>
+                                           </t>
+                                             <t t-if="p['color_33']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_33']"/></td>
+                                           </t>
+                                             <t t-if="p['color_34']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_34']"/></td>
+                                           </t>
+                                             <t t-if="p['color_35']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_35']"/></td>
+                                           </t>
+                                             <t t-if="p['color_36']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_36']"/></td>
+                                           </t>
+                                             <t t-if="p['color_37']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_37']"/></td>
+                                           </t>
+                                             <t t-if="p['color_38']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_39']"/></td>
+                                           </t>
+                                              <t t-if="p['color_39']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_39']"/></td>
+                                           </t>
+                                             <t t-if="p['color_40']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_40']"/></td>
+                                           </t>
+                                             <t t-if="p['color_41']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_41']"/></td>
+                                           </t>
+                                             <t t-if="p['color_42']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_43']"/></td>
+                                           </t>
+                                             <t t-if="p['color_43']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_43']"/></td>
+                                           </t>
+                                             <t t-if="p['color_44']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_44']"/></td>
+                                           </t>
+                                             <t t-if="p['color_45']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_45']"/></td>
+                                           </t>
+                                             <t t-if="p['color_46']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_46']"/></td>
+                                           </t>
+                                             <t t-if="p['color_47']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_47']"/></td>
+                                           </t>
+                                             <t t-if="p['color_48']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_48']"/></td>
+                                           </t>
+                                             <t t-if="p['color_49']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_49']"/></td>
+                                           </t>
+                                             <t t-if="p['color_50']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_50']"/></td>
+                                           </t>
+                                              <t t-if="p['color_51']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_51']"/></td>
+                                           </t>
+                                             <t t-if="p['color_52']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_52']"/></td>
+                                           </t>
+                                             <t t-if="p['color_53']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_53']"/></td>
+                                           </t>
+                                             <t t-if="p['color_54']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_54']"/></td>
+                                           </t>
+                                             <t t-if="p['color_55']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_55']"/></td>
+                                           </t>
+                                             <t t-if="p['color_56']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_56']"/></td>
+                                           </t>
+                                             <t t-if="p['color_57']!=0">
+                                           <td  class="text-center" ><t t-esc="p['color_57']"/></td>
+                                           </t>
+                                             <t t-if="p['color_58']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_58']"/></td>
+                                           </t>
+                                             <t t-if="p['color_59']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_59']"/></td>
+                                           </t>
+                                             <t t-if="p['color_60']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_60']"/></td>
+                                           </t>
+                                             <t t-if="p['color_61']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_61']"/></td>
+                                           </t>
+                                             <t t-if="p['color_62']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_62']"/></td>
+                                           </t>
+                                             <t t-if="p['color_63']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_63']"/></td>
+                                           </t>
+                                             <t t-if="p['color_64']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_64']"/></td>
+                                           </t>
+                                             <t t-if="p['color_65']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_65']"/></td>
+                                           </t>
+                                             <t t-if="p['color_66']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_66']"/></td>
+                                           </t>
+                                             <t t-if="p['color_67']!=0">
+                                           <td  class="text-center"  ><t t-esc="p['color_67']"/></td>
+                                           </t>
+                                             <t t-if="p['color_68']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_68']"/></td>
+                                           </t>
+                                             <t t-if="p['color_69']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_69']"/></td>
+                                           </t>
+                                             <t t-if="p['color_70']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_70']"/></td>
+                                           </t>
+                                             <t t-if="p['color_71']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_71']"/></td>
+                                           </t>
+                                             <t t-if="p['color_72']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_72']"/></td>
+                                           </t>
+                                             <t t-if="p['color_73']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_73']"/></td>
+                                           </t>
+                                             <t t-if="p['color_74']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_74']"/></td>
+                                           </t>
+                                             <t t-if="p['color_75']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_75']"/></td>
+                                           </t>
+                                             <t t-if="p['color_76']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_76']"/></td>
+                                           </t>
+                                             <t t-if="p['color_77']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_77']"/></td>
+                                           </t>
+                                             <t t-if="p['color_78']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_78']"/></td>
+                                           </t>
+                                             <t t-if="p['color_79']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_79']"/></td>
+                                           </t>
+                                             <t t-if="p['color_80']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_80']"/></td>
+                                           </t>
+                                             <t t-if="p['color_81']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_81']"/></td>
+                                           </t>
+                                             <t t-if="p['color_82']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_82']"/></td>
+                                           </t>
+                                             <t t-if="p['color_83']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_83']"/></td>
+                                           </t>
+                                             <t t-if="p['color_84']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_84']"/></td>
+                                           </t>
+                                             <t t-if="p['color_85']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_85']"/></td>
+                                           </t>
+                                             <t t-if="p['color_86']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_86']"/></td>
+                                           </t>
+                                             <t t-if="p['color_87']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_87']"/></td>
+                                           </t>
+                                             <t t-if="p['color_88']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_88']"/></td>
+                                           </t>
+                                             <t t-if="p['color_89']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_89']"/></td>
+                                           </t>
+                                             <t t-if="p['color_90']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_90']"/></td>
+                                           </t>
+                                             <t t-if="p['color_91']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_91']"/></td>
+                                           </t>
+                                             <t t-if="p['color_92']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_92']"/></td>
+                                           </t>
+                                             <t t-if="p['color_93']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_93']"/></td>
+                                           </t>
+                                             <t t-if="p['color_94']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_94']"/></td>
+                                           </t>
+                                             <t t-if="p['color_95']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_95']"/></td>
+                                           </t>
+                                             <t t-if="p['color_96']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_96']"/></td>
+                                           </t>
+                                             <t t-if="p['color_97']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_97']"/></td>
+                                           </t>
+                                             <t t-if="p['color_98']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_98']"/></td>
+                                           </t>
+                                             <t t-if="p['color_99']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_99']"/></td>
+                                           </t>
+                                             <t t-if="p['color_100']!=0">
+                                           <td  class="text-center"><t t-esc="p['color_100']"/></td>
+                                           </t>
+                                            </tr>
+                                    </table>
+                                </td>
+                                <td rowspan="2" class="text-center">
+                                    <t t-if="p['child_image']">
+                                        <img t-att-src="image_data_uri(p['child_image'])" width="150" height="100"/>
+                                    </t>
+                                    <t t-elif="p['image']">
+                                        <img t-att-src="image_data_uri(p['image'])" width="150" height="100"/>
+                                    </t>
+
+                                    <t t-else="">
+                                        No Image Uploaded
+                                    </t>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Rolls</td>
+                                <td style="text-align:center"><t t-esc="p['total_qty']"/> </td>
+                            </tr>
+                        </tbody>
+                        </t>
+                        <tr >
+                            <td colspan="3" ></td>
+                            <td class="text-center"><b><t t-esc="total_rolls"/></b></td>
+
+                        </tr>
+                    </table>
+
+                  <div class="row" style="margin-top:-15px">
+                        <t t-if="customer_note">
+                            <b>Note:</b>
+                            <t t-esc="customer_note"/>
+                        </t>
+                    </div>
+
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

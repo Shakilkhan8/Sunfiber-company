@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="delivery_header_id">
+            <t t-set="company" t-value="user.company_id"/>
+            <div class="header ">
+                <h5 class="text-center mt-1">
+					PACKING LIST UNIT-2 SUN FIBER PVT. LTD
+                </h5>
+                <div class="container">
+                    <div class="row">
+                        <table width="100%">
+                            <tr>
+                                <td class="text-left"><b>Customer:</b>
+                                    <t t-esc="customer"/>
+                                    <t t-if="sub_customer">
+                                        (<t t-esc="sub_customer"/>)
+                                    </t>
+                                </td>
+                                <td class="text-right"><b>Destination:</b>__________________</td>
+                            </tr>
+                            <tr>
+                                <td><b>Order No#:</b><t t-esc="number"/> </td>
+                            </tr>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="footer">
+
+            </div>
+        </template>
+
+    </data>
+</odoo>
