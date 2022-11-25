@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+    <!-- Inherit Form View to Modify it -->
+    <record id="fiber_sale_order_form_id" model="ir.ui.view">
+        <field name="name">Sale Order</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                       position="after">
+                    <field name="bales" groups="carpet_security_groups.fiber_user_group_id"/>
+                </xpath>
+        </field>
+    </record>
+  </data>
+</odoo>
