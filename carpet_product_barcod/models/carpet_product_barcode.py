@@ -57,7 +57,8 @@ class CarpetProductBarcode(models.Model):
                 'date': datetime.datetime.now().date(),
                 'sequence': seq_num,
             })
-            sequence_with_date = str(current_date).split('-')[0] + str(current_date).split('-')[1] + str(current_date).split('-')[2] + str(seq_num)
+            sequence_with_date = str(current_date).split('-')[0] + str(current_date).split('-')[1] + \
+                                 str(current_date).split('-')[2] + str(seq_num)
             self.batch_number = sequence_with_date
         elif seq.date == datetime.datetime.now().date():
             seq.write({
