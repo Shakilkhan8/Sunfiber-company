@@ -19,7 +19,6 @@
 
     
 """,
-    'price': 000,
     'currency': 'EUR',
     'author': 'BrowseInfo',
     'website': 'https://www.browseinfo.in',
@@ -27,9 +26,9 @@
     'data': [
             'report/report_journal_entries.xml',
             'report/report_journal_entries_view.xml',
+            'views/views.xml',
     ],
     'installable': True,
-    'auto_install': False,
     'live_test_url':'https://youtu.be/qehLT4WOWPs',
     "images":["static/description/Banner.png"],
 }

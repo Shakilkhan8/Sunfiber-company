@@ -42,16 +42,27 @@
                             </td>
                         </tr>
                     </table>
-                    
+
                     <br/>
+                    <style>
+                        .head{
+                            background-color: #175c20
+                        }
+                        .foot{
+                            color:white !important;
+                            background-color: #3243b8
+                        }
+                    </style>
 
                     <table style="width:100%;margin:0px auto;background:white;border:1px solid #e1e1e1;"
                            class="table table-condensed">
                         <thead>
-                            <tr>
-                                <th>Account</th>
-                                <th>Debit</th>
-                                <th>Credit</th>
+                            <tr class="head">
+                                <th style="color:white;">Account</th>
+                                <th style="color:white;">Debit</th>
+                                <th style="color:white;">Credit</th>
+                                <th style="color:white;">Source</th>
+                                <th style="color:white;">Memo</th>
                             </tr>
                         </thead>
                         <tbody class="consumed_tbody">
@@ -68,28 +79,36 @@
                                     <td>
                                         <span t-field="line.credit"/>
                                     </td>
+                                    <td>
+                                        <span t-field="line.bi_source"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.bi_memo"/>
+                                    </td>
                                 </tr>
                                 <t t-set="total" t-value="total + line.debit"/>
                                 <t t-set="total1" t-value="total1 + line.credit"/>
                             </t>
-                            <tr>
-                                <td>
+                            <tr class="foot">
+                                <td style="text-align:right;">
                                     <strong>Total:</strong>
                                 </td>
-                                <td width="10%">
+                                <td width="10%" style="text-align:center;">
                                     <strong>
                                         <span>
                                             <t t-esc="total"/>
                                         </span>
                                     </strong>
                                 </td>
-                                <td width="10%">
+                                <td width="10%" style="text-align:center;">
                                     <strong>
                                         <span>
                                             <t t-esc="total1"/>
                                         </span>
                                     </strong>
                                 </td>
+                                <td style="color:#3243b8;"></td>
+                                <td style="background-color:#3243b8;"></td>
                             </tr>
                         </tbody>
                     </table>

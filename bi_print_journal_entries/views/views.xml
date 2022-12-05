@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+     Inherit Form View to Modify it
+    <record id="invoice_data_inherit_account_move" model="ir.ui.view">
+        <field name="name">invoice_data_inherit_account_move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='line_ids']/tree/field[@name='credit']" position="after">
+                <field name="bi_source"/>
+                <field name="bi_memo"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
