@@ -2,7 +2,6 @@
 
 <odoo>
     <data>
-
         <template id="journal_entry_template_report_view">
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
@@ -46,11 +45,11 @@
                     <br/>
                     <style>
                         .head{
-                            background-color: #175c20
+                        background-color: #175c20
                         }
                         .foot{
-                            color:white !important;
-                            background-color: #3243b8
+                        color:white !important;
+                        background-color: #3243b8
                         }
                     </style>
 
@@ -90,21 +89,17 @@
                                 <t t-set="total1" t-value="total1 + line.credit"/>
                             </t>
                             <tr class="foot">
-                                <td style="text-align:right;">
+                                <td style="text-align:left;">
                                     <strong>Total:</strong>
                                 </td>
                                 <td width="10%" style="text-align:center;">
                                     <strong>
-                                        <span>
-                                            <t t-esc="total"/>
-                                        </span>
+                                        <span t-esc="'{:,}'.format(total)"/>Rs
                                     </strong>
                                 </td>
                                 <td width="10%" style="text-align:center;">
                                     <strong>
-                                        <span>
-                                            <t t-esc="total1"/>
-                                        </span>
+                                        <span t-esc="'{:,}'.format(total1)"/>Rs
                                     </strong>
                                 </td>
                                 <td style="color:#3243b8;"></td>
@@ -115,7 +110,6 @@
                 </div>
             </t>
         </template>
-
         <template id="journal_entry_report_template_id">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
