@@ -1,3 +1,5 @@
+import datetime
+
 from odoo import api, fields, models
 
 class ManualPackingListModel(models.TransientModel):
@@ -1293,6 +1295,7 @@ class ManualPackingListModel(models.TransientModel):
             'customer': order.partner_id.name,
             'sub_customer': order.sub_customer,
             'number': order.name,
+            'print_date': datetime.datetime.now().date().strftime("%m- %d- %Y"),
             'customer_note': order.customer_note,
         }
 
