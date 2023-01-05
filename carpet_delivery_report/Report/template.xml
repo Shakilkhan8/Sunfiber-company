@@ -29,7 +29,7 @@
                                 <b>Order Numer:</b>
                                 <t t-esc="order_number"/>
                             </td>
-                            <td class="text-left">
+                            <td class="text-right">
                                 <b>Packing No#:</b>
                                 <t t-esc="number"/>
                             </td>
