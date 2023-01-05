@@ -22,7 +22,9 @@ class CarpetProductFields(models.Model):
 
     def show_product(self):
         product = self.search([])
-        p = product.filtered(lambda item: item.create_date.date() ==  datetime.now().date().today() - timedelta(days=1))
+        date = datetime.now().date().today() - timedelta(days=1)
+        print(date)
+        p = product.filtered(lambda item: item.create_date.date() == date)
         return {
             'name': 'Product Template',
             'view_mode': 'tree',
