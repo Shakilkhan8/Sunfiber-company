@@ -30,6 +30,7 @@
         'views/carpet_grades.xml',
         'views/product_category_changes_view.xml',
         'views/product_template_search_view.xml',
+        'views/daily_product_history.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
