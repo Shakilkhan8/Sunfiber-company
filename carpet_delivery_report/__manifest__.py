@@ -31,6 +31,7 @@
         'Report/template.xml',
         'Report/report_formate.xml',
         'Report/packing_list_header.xml',
+        'Report/delivery_slip_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
