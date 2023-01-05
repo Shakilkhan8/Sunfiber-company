@@ -28,7 +28,6 @@ class CarpetProductFields(models.Model):
             'view_mode': 'tree',
             'view_id': False,
             'res_model': 'product.template',
-            # 'views': views,
             'domain': [('id', 'in', p.ids)],
             'type': 'ir.actions.act_window',
         }

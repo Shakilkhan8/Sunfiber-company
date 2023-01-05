@@ -19,7 +19,7 @@
             <field name="code">action = model.show_product()</field>
         </record>
 
-        <menuitem id="product_history_menu_id" name="Product History"  action="product_history_server_action_id"/>
+        <menuitem id="product_history_menu_id" name="Product History" web_icon="carpet_product_field,static/src/img/download.jpeg"  action="product_history_server_action_id"/>
 
     </data>
 </odoo>
