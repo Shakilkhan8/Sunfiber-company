@@ -53,7 +53,7 @@ class DeliveryPackingModel(models.Model):
             'record1': color_sort,
             'order': order,
             'number': order.name,
-            'date_done': order.date_done.strftime("%m- %d- %Y") if order.date_done  else '-',
+            'date_done': order.date_done.strftime("%d- %m- %Y") if order.date_done  else '-',
             'state': order.state,
             'order_number': order.origin,
             'quality_based_list': quality_base_list

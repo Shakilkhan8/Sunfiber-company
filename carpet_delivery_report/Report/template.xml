@@ -25,13 +25,13 @@
                         </tr>
 
                         <tr>
-                            <td class="text-left">
-                                <b>Packing No#:</b>
-                                <t t-esc="number"/>
-                            </td>
                             <td class="text-right">
                                 <b>Order Numer:</b>
                                 <t t-esc="order_number"/>
+                            </td>
+                            <td class="text-left">
+                                <b>Packing No#:</b>
+                                <t t-esc="number"/>
                             </td>
                         </tr>
                     </table>
@@ -163,8 +163,8 @@
                                             <td><t t-esc="p['design_id'].name"/></td>
                                             <td><t t-esc="p['quality_id'].name"/></td>
                                             <td><t t-esc="p['grade'].name"/></td>
-                                            <td><t t-esc="p['qty']"/></td>
-                                            <td><t t-esc="p['length']"/></td>
+                                            <td><t t-esc="p['qty']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            <td><t t-esc="p['length']" t-options='{"widget": "float", "precision": 2}'/></td>
                                         </tr>
                                     </tbody>
                                 </t>
