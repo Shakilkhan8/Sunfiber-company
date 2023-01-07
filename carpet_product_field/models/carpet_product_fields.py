@@ -20,19 +20,17 @@ class CarpetProductFields(models.Model):
     digital_print_child = fields.Many2one('digital.print.child')
     batch_number = fields.Text('Batch Number')
 
-    def show_product(self):
-        product = self.search([])
-        date = datetime.now().date().today() - timedelta(days=1)
-        print(date)
-        p = product.filtered(lambda item: item.create_date.date() == date)
-        return {
-            'name': 'Product Template',
-            'view_mode': 'tree',
-            'view_id': False,
-            'res_model': 'product.template',
-            'domain': [('id', 'in', p.ids)],
-            'type': 'ir.actions.act_window',
-        }
+    # def show_product(self):
+    #     product = self.search([])
+    #     p = product.filtered(lambda item: item.create_date.date() ==  datetime.now().date().today() - timedelta(days=1))
+    #     return {
+    #         'name': 'Product Template',
+    #         'view_mode': 'tree',
+    #         'view_id': False,
+    #         'res_model': 'product.template',
+    #         'domain': [('id', 'in', p.ids)],
+    #         'type': 'ir.actions.act_window',
+    #     }
 
 class DigitalPrintChildCategory(models.Model):
     _name = 'digital.print.child'

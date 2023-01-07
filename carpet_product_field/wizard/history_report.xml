@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="history_report_formate_id" model="report.paperformat">
+            <field name="name">Barcode Formate</field>
+            <field name="format">custom</field>
+
+            <field name="page_height">900</field>
+
+            <field name="page_width">200</field>
+
+            <field name="orientation">Portrait</field>
+
+            <field name="margin_top">6</field>
+
+            <field name="margin_bottom">10</field>
+
+            <field name="margin_left">0</field>
+
+            <field name="margin_right">0</field>
+
+            <field name="header_line" eval="False"/>
+
+            <field name="header_spacing">5</field>
+
+            <field name="dpi">90</field>
+
+        </record>
+
+        <record id="product_hist_report_action_id" model="ir.actions.report">
+            <field name="name">Product Report Action</field>
+            <field name="model">product.template</field>
+            <field name="binding_model_id" ref="model_product_template"/>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">carpet_product_field.product_hist_report_id</field>
+            <field name="report_file">carpet_product_field.product_hist_report_id</field>
+            <field name="paperformat_id" ref="carpet_product_field.history_report_formate_id"/>
+        </record>
+
+
+        <template id="product_hist_report_id">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <table class="table">
+                            <thead>
+                                <th>Product</th>
+                                <th class="text-right">Batch No#</th>
+                            </thead>
+
+                            <t t-foreach="product" t-as="p">
+                                <tr>
+                                    <td>
+                                        <t t-esc="p.name"/>
+                                    </td>
+                                    <td class="text-right"><t t-esc="p.batch_number"/> </td>
+                                </tr>
+                            </t>
+                        </table>
+                    </div>
+
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>
