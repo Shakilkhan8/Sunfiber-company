@@ -67,7 +67,7 @@
                                         </t>
                                     </table>
                                 </td>
-                                <td width="7%" style="border:1px solid black; " height="600" class="text-center">
+                                <td width="10%" style="border:1px solid black; " height="600" class="text-center">
                                     <table width="100%">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
@@ -152,7 +152,7 @@
                                     </table>
                                 </td>
 
-                                <td width="15%" style="border:1px solid black; " height="600" class="text-center">
+                                <td width="12%" style="border:1px solid black; " height="600" class="text-center">
                                     <table width="100%">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
