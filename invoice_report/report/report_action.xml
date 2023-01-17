@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+       <!-- <record id="bill_report_format_id" model="report.paperformat">
+            <field name="name">Commercial Paper Format</field>
+            <field name="format">custom</field>
+            <field name="page_height">220</field>
+            <field name="page_width">250</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">15</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">3</field>
+            <field name="dpi">90</field>
+        </record>-->
 
-       <!-- QWeb Reports -->
-       <!-- NAME & FILE_NAME should be the same -->
-               <report
-                   id="invoice_report_id"
-                   model="account.move"
-                   report_type="qweb-pdf"
-                   string="Bill Report"
-                   name="invoice_report.invoice_report_template_id"
-                   file="invoice_report.invoice_report_template_id"
-               />
+        <record id="delivery_report_action_id" model="ir.actions.report">
+            <field name="name">Bill Report</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">invoice_report.invoice_report_template_id</field>
+            <field name="report_file">invoice_report.invoice_report_template_id</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+<!--            <field name="paperformat_id" ref="invoice_report.bill_report_format_id"/>-->
+        </record>
 
-         <report
-                   id="invoice_report_id"
-                   model="account.move"
-                   report_type="qweb-pdf"
-                   string="Bill Report"
-                   name="invoice_report.invoice_report_template_id"
-                   file="invoice_report.invoice_report_template_id"
-               />
+        <!--<report
+                id="invoice_report_id"
+                model="account.move"
+                report_type="qweb-pdf"
+                string="Bill Report"
+                name="invoice_report.invoice_report_template_id"
+                file="invoice_report.invoice_report_template_id"
+        />-->
 
 
     </data>

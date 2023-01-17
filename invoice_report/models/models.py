@@ -47,5 +47,6 @@ class InvoiceReportInheritModel(models.Model):
         return {
             'record': rec_lst,
             'date': inv.invoice_date,
+            'state': inv.name,
             'partner': inv.partner_id.name,
         }

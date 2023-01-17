@@ -10,13 +10,18 @@
                     <t t-set="total_sqf" t-value="0"/>
                     <t t-set="total_amount" t-value="0"/>
                     <div class="page">
+                        <h4 class="text-left">
+                            <t t-if="state=='/'">
+                                Draft
+                            </t>
 
+                        </h4>
                         <table class="mt-1" width="100%" style="border:1px solid black ">
                             <thead>
                                 <th class="text-center" style="border: 1px solid black">Sr.No</th>
                                 <th class="text-center" style="border: 1px solid black">Product</th>
-                                <th class="text-center" style="border: 1px solid black">Rolls</th>
                                 <th class="text-center" style="border: 1px solid black">Quality</th>
+                                <th class="text-center" style="border: 1px solid black">Rolls</th>
                                 <th class="text-center" style="border: 1px solid black">Width (Meter)</th>
                                 <th class="text-center" style="border: 1px solid black">Length (Meter)</th>
                                 <th class="text-center" style="border: 1px solid black">SQF</th>
@@ -24,8 +29,8 @@
                                 <th class="text-center" style="border: 1px solid black">Amount (PKR)</th>
                             </thead>
                             <tr>
-                                <td style="border:1px solid black; " height="600">
-                                    <table width="100%" style="margin-top:px">
+                                <td width="5%" style="border:1px solid black; " height="600">
+                                    <table width="100%" style="margin-left:10px">
                                         <t t-set="ser" t-value="0"/>
                                         <t t-set="total_length" t-value="0"/>
                                         <t t-set="total_qty" t-value="0"/>
@@ -49,8 +54,8 @@
                                     </table>
                                 </td>
 
-                                <td style="border:1px solid black; " height="600" class="text-center">
-                                    <table width="%" style="margin-left:10px">
+                                <td width="35%" style="border:1px solid black" height="600" class="text-center">
+                                    <table width="100%" style="margin-left:10px">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
                                                 <td style="">
@@ -62,9 +67,21 @@
                                         </t>
                                     </table>
                                 </td>
-
-                                <td style="border:1px solid black; " height="600" class="text-center">
+                                <td width="7%" style="border:1px solid black; " height="600" class="text-center">
                                     <table width="%" style="margin-left:10px">
+                                        <t t-foreach="record" t-as="p">
+                                            <tr>
+                                                <td style="">
+                                                    <p class="mt-2">
+                                                        <t t-esc="p['quality']"/>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </table>
+                                </td>
+                                <td width="5%" style="border:1px solid black; " height="600" class="text-center">
+                                    <table style="margin-left:10px">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
                                                 <td>
@@ -78,21 +95,7 @@
                                     </table>
                                 </td>
 
-                                <td style="border:1px solid black; " height="600" class="text-center">
-                                    <table width="%" style="margin-left:10px">
-                                        <t t-foreach="record" t-as="p">
-                                            <tr>
-                                                <td style="">
-                                                    <p class="mt-2">
-                                                        <t t-esc="p['quality']"/>
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        </t>
-                                    </table>
-                                </td>
-
-                                <td style="border:1px solid black; " height="600" class="text-center">
+                                <td width="5%" style="border:1px solid black; " height="600" class="text-center">
                                     <table width="%" style="margin-left:10px">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
@@ -106,7 +109,7 @@
                                     </table>
                                 </td>
 
-                                <td style="border:1px solid black; " height="600" class="text-center">
+                                <td width="8%" style="border:1px solid black; " height="600" class="text-center">
                                     <table width="%" style="margin-left:10px">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
@@ -120,8 +123,8 @@
                                         </t>
                                     </table>
                                 </td>
-                                <td style="border:1px solid black; " height="600" class="text-center">
-                                    <table width="%" style="margin-left:10px">
+                                <td width="10%" style="border:1px solid black; " height="600" class="text-center">
+                                    <table width="%" style="margin-left:20px">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
                                                 <td>
@@ -134,8 +137,8 @@
                                         </t>
                                     </table>
                                 </td>
-                                <td style="border:1px solid black; " height="600" class="text-center">
-                                    <table width="%" style="margin-left:10px">
+                                <td width="10%" style="border:1px solid black; " height="600" class="text-center">
+                                    <table width="%" style="margin-left:15px">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
                                                 <td>
@@ -149,8 +152,8 @@
                                     </table>
                                 </td>
 
-                                <td style="border:1px solid black; " height="600" class="text-center">
-                                    <table width="%" style="margin-left:10px">
+                                <td width="15%" style="border:1px solid black; " height="600" class="text-center">
+                                    <table width="%" style="margin-left:20px">
                                         <t t-foreach="record" t-as="p">
                                             <tr>
                                                 <td class="text-center">
@@ -174,19 +177,24 @@
                                     <b>Total</b>
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center">
-                                    <b>
+
+                                </td>
+                                <td style="border-right:1px solid black; text-align:center">
+                                     <b>
                                         <t t-esc="total_qty" t-options='{"widget": "float", "precision": 2}'/>
                                     </b>
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center">
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center">
+                                    <b>
+                                        <t t-esc="total_length" t-options='{"widget": "float", "precision": 1}'/>
+                                    </b>
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center">
-                                   <b><t t-esc="total_length" t-options='{"widget": "float", "precision": 1}'/></b>
-                                </td>
-                                <td style="border-right:1px solid black; text-align:center">
-                                    <b><t t-esc="total_sqf" t-options='{"widget": "float", "precision": 2}'/></b>
+                                    <b>
+                                        <t t-esc="total_sqf" t-options='{"widget": "float", "precision": 2}'/>
+                                    </b>
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center"></td>
 
