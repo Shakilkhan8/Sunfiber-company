@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="history_report_wizard_form_id" model="ir.ui.view">
+            <field name="name">History Report</field>
+            <field name="model">history.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="_form">
+                    <sheet>
+                        <group>
+                            <field name="date"/>
+                        </group>
+                        <footer>
+                            <button type="object" name="product_history_report" string="Print Report" class="oe_highlight"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="history_action_id" model="ir.actions.act_window">
+            <field name="name">Product History Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">history.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="product_history_menu_id" name="Product History" web_icon="carpet_product_field,static/src/img/download.jpeg"  action="history_action_id"/>
+
+    </data>
+</odoo>
