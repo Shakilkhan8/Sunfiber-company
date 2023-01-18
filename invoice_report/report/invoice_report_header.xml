@@ -5,7 +5,7 @@
             <t t-set="company" t-value="user.company_id"/>
             <div class="header ">
                 <h5 class="text-center mt-1">
-                    Carpet Report
+                    Carpet Bill
                 </h5>
                 <div class="container-fluid">
                     <table width="100%">

@@ -30,7 +30,7 @@
                             </thead>
                             <tr>
                                 <td width="5%" style="border:1px solid black;" height="600">
-                                    <table width="100%" style="margin-left:13px">
+                                    <table width="100%">
                                         <t t-set="ser" t-value="0"/>
                                         <t t-set="total_length" t-value="0"/>
                                         <t t-set="total_qty" t-value="0"/>
@@ -173,7 +173,7 @@
                                 <td style="border-right:1px solid black; ">
                                     <b></b>
                                 </td>
-                                <td style="border-right:1px solid black; ">
+                                <td style="border-right:1px solid black;text-align:center ">
                                     <b>Total</b>
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center">
@@ -181,7 +181,7 @@
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center">
                                      <b>
-                                        <t t-esc="total_qty" t-options='{"widget": "float", "precision": 2}'/>
+                                        <t t-esc="total_qty" t-options='{"widget": "float", "precision": 0}'/>
                                     </b>
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center">
@@ -193,7 +193,7 @@
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center">
                                     <b>
-                                        <t t-esc="total_sqf" t-options='{"widget": "float", "precision": 2}'/>
+                                        <t t-esc="total_sqf" t-options='{"widget": "float", "precision": 0}'/>
                                     </b>
                                 </td>
                                 <td style="border-right:1px solid black; text-align:center"></td>
