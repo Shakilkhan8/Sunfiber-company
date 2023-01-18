@@ -48,6 +48,6 @@ class InvoiceReportInheritModel(models.Model):
         return {
             'record': rec_lst,
             'date': inv.invoice_date.strftime("%d- %m- %Y") if inv.invoice_date  else '-',
-            'state': inv.name,
+            'state': inv.state,
             'partner': inv.partner_id.name,
         }
