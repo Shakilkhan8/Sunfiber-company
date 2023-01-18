@@ -10,12 +10,6 @@
                     <t t-set="total_sqf" t-value="0"/>
                     <t t-set="total_amount" t-value="0"/>
                     <div class="page">
-                        <h4 class="text-left">
-                            <t t-if="state=='/'">
-                                Draft
-                            </t>
-
-                        </h4>
                         <table class="mt-1" width="100%" style="border:1px solid black ">
                             <thead>
                                 <th class="text-center" style="border: 1px solid black">Sr.No</th>

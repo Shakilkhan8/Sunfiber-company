@@ -2,17 +2,17 @@
 <odoo>
     <data>
         <record id="bill_report_format_id" model="report.paperformat">
-            <field name="name">Commercial Paper Format</field>
+            <field name="name">Bill Report Format</field>
             <field name="format">custom</field>
             <field name="page_height">250</field>
             <field name="page_width">250</field>
             <field name="orientation">Landscape</field>
-            <field name="margin_top">30</field>
+            <field name="margin_top">40</field>
             <field name="margin_bottom">20</field>
             <field name="margin_left">5</field>
             <field name="margin_right">5</field>
             <field name="header_line" eval="False"/>
-            <field name="header_spacing">20</field>
+            <field name="header_spacing">30</field>
             <field name="dpi">90</field>
         </record>
 

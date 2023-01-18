@@ -5,19 +5,29 @@
             <t t-set="company" t-value="user.company_id"/>
             <div class="header ">
                 <h5 class="text-center mt-1">
-                    Carpet Bill
+                    <strong>Carpet Bill</strong>
                 </h5>
                 <div class="container-fluid">
                     <table width="100%">
                         <tr>
-                            <td>Party Name:
+                            <td><strong>Party Name:</strong>
                                 <t t-esc="partner"/>
                             </td>
                             <t t-if="date">
-                                <td class="text-right">Date:
+                                <td class="text-right"><strong>Date:</strong>
                                     <t t-esc="date"/>
                                 </td>
                             </t>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h4 class="text-left">
+                                    <t t-if="state=='/'">
+                                        <strong>Draft</strong>
+                                    </t>
+
+                                </h4>
+                            </td>
                         </tr>
                     </table>
 
