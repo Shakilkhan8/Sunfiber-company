@@ -22,7 +22,7 @@
                         <tr>
                             <td>
                                 <h4 class="text-left">
-                                    <t t-if="state=='/'">
+                                    <t t-if="state=='draft'">
                                         <strong>Draft</strong>
                                     </t>
 
