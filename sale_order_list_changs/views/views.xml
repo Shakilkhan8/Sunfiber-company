@@ -10,6 +10,20 @@
                 </xpath>
             </field>
         </record>
+        <record id="search_report_analysis" model="ir.ui.view">
+            <field name="model">sale.report</field>
+            <field name="inherit_id" ref="sale.view_order_product_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='country_id']" position="after">
+                    <filter string="Length" name="carpet_length"
+                            context="{'group_by':'carpet_length'}"/>
+                </xpath>
+                <xpath expr="//filter[@name='carpet_length']" position="after">
+                    <filter string="Square Foot" name="square_foot"
+                            context="{'group_by':'square_foot'}"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </odoo>
 

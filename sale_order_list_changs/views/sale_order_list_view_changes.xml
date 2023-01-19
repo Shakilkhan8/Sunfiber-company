@@ -38,6 +38,10 @@
                     <field name="total_roll"/>
                 </xpath>
 
+                <xpath expr="//field[@name='tax_totals_json']" position="after">
+                    <field name="total_sqf"/>
+                </xpath>
+
             </field>
         </record>
 
@@ -120,6 +124,7 @@
                     <field name="payment_received" string="Payment"/>
                     <field name="delivery_confirm" string="Delivered"/>
                     <field name="amount_total" string="Actual Bill"/>
+
                 </xpath>
                 <xpath expr="//field[@name='amount_total']" position="attributes">
                     <attribute name="invisible">True</attribute>
@@ -149,10 +154,9 @@
                             context="{'group_by': 'dispatch_date'}"/>
                     <filter name="confirmation_date" string="Confirmation Date"
                             context="{'group_by': 'confirmation_date'}"/>
-                </xpath>
 
+                </xpath>
             </field>
         </record>
-
     </data>
 </odoo>
