@@ -13,7 +13,8 @@ class CarpetProductBarcode(models.Model):
     _name = 'carpet.barcode'
     _rec_name = 'categ_id'
 
-    categ_id = fields.Many2one('product.category', 'Design *', required=True,domain=lambda self: [('company_id', '=', self.env.user.company_id.id)])
+    # categ_id = fields.Many2one('product.category', 'Design *', required=True,domain=lambda self: [('company_id', '=', self.env.user.company_id.id)])
+    categ_id = fields.Many2one('product.category', 'Design *', required=True)
     carpet_color = fields.Char('Color *', required=True)
     carpet_quality = fields.Many2one("carpet.product.quality", "Quality *", requried=True)
     location_id = fields.Many2one('stock.location', "Location *", readonly=True, domain=[('usage', '=', 'internal')])
@@ -33,15 +34,18 @@ class CarpetProductBarcode(models.Model):
 
     @api.onchange('categ_id')
     def _onchange_category(self):
-        if self.categ_id.name == 'Digital Printed' or self.categ_id.name == 'Digital Printed with Felt' or self.categ_id.name == 'Tufted Graphics' or self.categ_id.name == 'Tufted Scroll':
+        child = self.env['digital.print.child'].search([('categ_id', '=', self.categ_id.id)])
+        if child:
             self.check = True
         else:
             self.check = False
 
+
     def create_product_template(self):
         l = []
+        child = self.env['digital.print.child'].search([('categ_id', '=', self.categ_id.id)])
 
-        if self.categ_id.name == 'Digital Printed' or self.categ_id.name == 'Digital Printed with Felt' or self.categ_id.name == 'Tufted Graphics' or self.categ_id.name == 'Tufted Scroll':
+        if child:
             name = " ( " + self.carpet_grade_id.name + " ) " + self.categ_id.name + " / " + self.digital_print_child.name + " / " + self.carpet_color + " / " + str(
                 self.meters) + "m" + " / " + self.carpet_quality.display_name if self.carpet_grade_id.name == 'B' else self.categ_id.name + " / " + self.digital_print_child.name + " / " + self.carpet_color + " / " + str(
                 self.meters) + "m" + " / " + self.carpet_quality.display_name
