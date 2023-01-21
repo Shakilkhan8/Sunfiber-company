@@ -1,8 +1,7 @@
 import re
 from datetime import datetime, timedelta
-
+from odoo.osv import expression
 from odoo import api, fields, models, _
-from odoo.osv.expression import expression
 
 
 class CarpetProductFields(models.Model):
@@ -40,17 +39,17 @@ class CarpetProductFields(models.Model):
     #                 rec.customer_ids = vals.get('customer_ids')
     #     return res
 
-    @api.model
-    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
-        args = [] if args is None else args.copy()
-        if not (name == '' and operator == 'ilike'):
-            args += ['|', '|',
-                     ('name', operator, name),
-                     ('batch_number', operator, name),
-                     ('barcode', operator, name)
-                     ]
-        return super(CarpetProductFields, self)._name_search(name=name, args=args, operator=operator,
-                                                               limit=limit, name_get_uid=name_get_uid)
+    # @api.model
+    # def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+    #     args = [] if args is None else args.copy()
+    #     if not (name == '' and operator == 'ilike'):
+    #         args += ['|', '|',
+    #                  ('name', operator, name),
+    #                  ('batch_number', operator, name),
+    #                  ('barcode', operator, name)
+    #                  ]
+    #     return super(CarpetProductFields, self)._name_search(name=name, args=args, operator=operator,
+    #                                                            limit=limit, name_get_uid=name_get_uid)
 
 
 class ProductProductInherit(models.Model):
@@ -59,16 +58,15 @@ class ProductProductInherit(models.Model):
     batch_number = fields.Char('Batch Number')
 
     @api.model
-    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+    def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []
-        if not (name == '' and operator == 'ilike'):
-            args += ['|', '|',
-                     ('name', operator, name),
-                     ('batch_number', operator, name),
-                     ('barcode', operator, name)
-                     ]
-        return super(ProductProductInherit, self)._name_search(name=name, args=args, operator=operator,
-                                                               limit=limit, name_get_uid=name_get_uid)
+        recs = self.search([('batch_number', operator, name)] + args, limit=limit)
+        if not recs.ids:
+            return super(ProductProductInherit, self).name_search(name=name, args=args,
+                                                       operator=operator,
+                                                       limit=limit)
+        return recs.name_get()
+    
 
 class DigitalPrintChildCategory(models.Model):
     _name = 'digital.print.child'
