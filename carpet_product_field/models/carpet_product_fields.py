@@ -1,11 +1,11 @@
-from datetime import datetime,timedelta
-
-from odoo import api, fields, models
+import re
+from datetime import datetime, timedelta
+from odoo.osv import expression
+from odoo import api, fields, models, _
 
 
 class CarpetProductFields(models.Model):
     _inherit = 'product.template'
-
 
     carpet_color = fields.Char("Color")
     unit_of_measure = fields.Char("Unit of Measure", default='m', readonly=True)
@@ -20,91 +20,53 @@ class CarpetProductFields(models.Model):
     digital_print_child = fields.Many2one('digital.print.child')
     batch_number = fields.Text('Batch Number')
 
+    @api.model
+    def create(self, vals):
+        res = super(CarpetProductFields, self).create(vals)
+        if res['batch_number']:
+            product_product = self.env['product.product'].search([('product_tmpl_id', '=', res.id)])
+            if product_product:
+                for rec in product_product:
+                    rec.batch_number = res['batch_number']
+        return res
+
+    # def write(self, vals):
+    #     res = super(InheritProductTemplate, self).write(vals)
+    #     if vals.get('customer_ids'):
+    #         product_product = self.env['product.product'].search([('product_tmpl_id', '=', self.id)])
+    #         if product_product:
+    #             for rec in product_product:
+    #                 rec.customer_ids = vals.get('customer_ids')
+    #     return res
+
+    # @api.model
+    # def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+    #     args = [] if args is None else args.copy()
+    #     if not (name == '' and operator == 'ilike'):
+    #         args += ['|', '|',
+    #                  ('name', operator, name),
+    #                  ('batch_number', operator, name),
+    #                  ('barcode', operator, name)
+    #                  ]
+    #     return super(CarpetProductFields, self)._name_search(name=name, args=args, operator=operator,
+    #                                                            limit=limit, name_get_uid=name_get_uid)
+
 
 class ProductProductInherit(models.Model):
     _inherit = 'product.product'
 
-    def name_get(self):
-        # TDE: this could be cleaned a bit I think
+    batch_number = fields.Char('Batch Number')
 
-        def _name_get(d):
-            name = d.get('name', '')
-            code = self._context.get('display_default_code', True) and d.get('default_code', False) or False
-            batch = d.get('batch_number') if d.get('batch_number') else ""
-            if code or d.get('batch_number')  :
-                name = '%s [%s] %s' % (batch, code, name)
-            return (d['id'], name)
-
-        partner_id = self._context.get('partner_id')
-        if partner_id:
-            partner_ids = [partner_id, self.env['res.partner'].browse(partner_id).commercial_partner_id.id]
-        else:
-            partner_ids = []
-        company_id = self.env.context.get('company_id')
-
-        # all user don't have access to seller and partner
-        # check access and use superuser
-        self.check_access_rights("read")
-        self.check_access_rule("read")
-
-        result = []
-
-        # Prefetch the fields used by the `name_get`, so `browse` doesn't fetch other fields
-        # Use `load=False` to not call `name_get` for the `product_tmpl_id`
-        self.sudo().read(['name', 'default_code', 'product_tmpl_id'], load=False)
-
-        product_template_ids = self.sudo().mapped('product_tmpl_id').ids
-
-        if partner_ids:
-            supplier_info = self.env['product.supplierinfo'].sudo().search([
-                ('product_tmpl_id', 'in', product_template_ids),
-                ('name', 'in', partner_ids),
-            ])
-            # Prefetch the fields used by the `name_get`, so `browse` doesn't fetch other fields
-            # Use `load=False` to not call `name_get` for the `product_tmpl_id` and `product_id`
-            supplier_info.sudo().read(['product_tmpl_id', 'product_id', 'product_name', 'product_code'], load=False)
-            supplier_info_by_template = {}
-            for r in supplier_info:
-                supplier_info_by_template.setdefault(r.product_tmpl_id, []).append(r)
-        for product in self.sudo():
-            variant = product.product_template_attribute_value_ids._get_combination_name()
-
-            name = variant and "%s %s (%s)" % (product.name, product.batch_number, variant) or product.name
-            sellers = self.env['product.supplierinfo'].sudo().browse(self.env.context.get('seller_id')) or []
-            if not sellers and partner_ids:
-                product_supplier_info = supplier_info_by_template.get(product.product_tmpl_id, [])
-                sellers = [x for x in product_supplier_info if x.product_id and x.product_id == product]
-                if not sellers:
-                    sellers = [x for x in product_supplier_info if not x.product_id]
-                # Filter out sellers based on the company. This is done afterwards for a better
-                # code readability. At this point, only a few sellers should remain, so it should
-                # not be a performance issue.
-                if company_id:
-                    sellers = [x for x in sellers if x.company_id.id in [company_id, False]]
-            if sellers:
-                for s in sellers:
-                    seller_variant = s.product_name and (
-                            variant and "%s %s (%s)" % (s.product_name, product.batch_number, variant) or s.product_name
-                    ) or False
-                    mydict = {
-                        'id': product.id,
-                        'name': seller_variant or name,
-                        'default_code': s.product_code or product.default_code,
-                        'batch_number': product.batch_number,
-                    }
-                    temp = _name_get(mydict)
-                    if temp not in result:
-                        result.append(temp)
-            else:
-                mydict = {
-                    'id': product.id,
-                    'name': name,
-                    'default_code': product.default_code,
-                    'batch_number': product.batch_number,
-                }
-                result.append(_name_get(mydict))
-        return result
-
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.search([('batch_number', operator, name)] + args, limit=limit)
+        if not recs.ids:
+            return super(ProductProductInherit, self).name_search(name=name, args=args,
+                                                       operator=operator,
+                                                       limit=limit)
+        return recs.name_get()
+    
 
 class DigitalPrintChildCategory(models.Model):
     _name = 'digital.print.child'

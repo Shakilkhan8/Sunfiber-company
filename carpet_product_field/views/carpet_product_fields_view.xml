@@ -27,5 +27,20 @@
             </field>
         </record>
 
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_product_form_id" model="ir.ui.view">
+            <field name="name">Product Product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='detailed_type']" position="after">
+                    <field name="batch_number"/>
+                </xpath>
+
+            </field>
+        </record>
+
     </data>
 </odoo>
