@@ -6,6 +6,7 @@ class AccountMoveInherit(models.Model):
 
     select_items = fields.Boolean(defult=False)
 
+
     @api.onchange('select_items')
     def _onchange_items(self):
         for line in self.line_ids:
@@ -15,9 +16,13 @@ class AccountMoveInherit(models.Model):
                 line.check_item = False
 
     def delete_items(self):
-        for line in self.line_ids:
-            if line.check_item:
-                line.unlink()
+        if self.state not in ['draft', 'cancel']:
+            self.write({
+                'state': 'draft'
+            })
+        if self.state == 'draft':
+            for line in self.invoice_line_ids:
+                self.write({'invoice_line_ids': [(2, line.id, 0)]})
 
 class AccountMoveLineInherit(models.Model):
     _inherit = 'account.move.line'
