@@ -24,13 +24,14 @@ class InvoiceReportInheritModel(models.Model):
                         'width': line.product_id.carpet_width,
                         'length': line.product_id.carpet_length,
                         'quality': line.product_id.carpet_quality_id.name,
-                        'design': line.product_id.categ_id.name + " ( " +  line.product_id.carpet_grade_id.name + " ) " if line.product_id.carpet_grade_id else "",
+                        'design': line.product_id.categ_id.name,
                         'design_id': line.product_id.categ_id.id,
                         'price': line.price_unit,
                         'quantity': line.sqf,
                         'sqf': line.quantity,
                         'amount': line.price_subtotal,
                         'grade': line.product_id.carpet_grade_id.id,
+                        'grade_id': line.product_id.carpet_grade_id,
                     })
 
             else:
@@ -40,13 +41,15 @@ class InvoiceReportInheritModel(models.Model):
                    'width': line.product_id.carpet_width,
                    'length': line.product_id.carpet_length,
                    'quality': line.product_id.carpet_quality_id.name,
-                   'design': line.product_id.categ_id.name +  line.product_id.categ_id.name + " ( " +  line.product_id.carpet_grade_id.name + " ) " if line.product_id.carpet_grade_id else "",
+                   'design': line.product_id.categ_id.name ,
                    'design_id': line.product_id.categ_id.id,
                    'price': line.price_unit,
                    'quantity': line.sqf,
                    'sqf': line.quantity,
                    'amount': line.price_subtotal,
                    'grade': line.product_id.carpet_grade_id.id,
+                   'grade_id': line.product_id.carpet_grade_id,
+
                })
 
 

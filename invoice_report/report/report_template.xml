@@ -54,7 +54,7 @@
                                             <tr>
                                                 <td class="text-center">
                                                     <p class="mt-2">
-                                                        <t t-esc="p['design']"/>
+                                                        <t t-esc="p['design']"/> <t t-esc="p['grade_id'].name"/>
                                                     </p>
                                                 </td>
                                             </tr>
