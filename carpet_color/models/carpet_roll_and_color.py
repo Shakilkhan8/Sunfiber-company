@@ -7,8 +7,7 @@ class CarpetColorModel(models.Model):
 
     color_line_id = fields.One2many('carpet.color.line', 'sale_order_id')
     currency_id = fields.Many2one('res.currency')
-    total_price = fields.Monetary('Total Price', readonly=True, store=True)
-
+    total_price = fields.Monetary('Total Price', compute='_compute_price')
     payment_received = fields.Selection([
         ('Yes', 'Yes'),
         ('No', 'No')
@@ -29,6 +28,12 @@ class CarpetColorModel(models.Model):
     total_roll = fields.Float('Total roll')
     required_field_check = fields.Boolean(default=False)
 
+    def _compute_price(self):
+        for rec in self:
+            total = 0.0
+            for line in rec.color_line_id:
+               total+= line.price_unit * line.square_foot
+            rec.total_price = total
     def default_get(self, fields_list):
         res = super(CarpetColorModel, self).default_get(fields_list)
         if self.env.user.check_company:
@@ -41,9 +46,9 @@ class CarpetColorModel(models.Model):
     @api.onchange('order_line')
     def _onchange_oder_line(self):
         rec_list = []
+        amount_total = 0.0
         for rec in self.order_line:
             # giving same price to all product having same quality and design
-
             if self.env.user.check_company:
                 if rec_list:
                     exist_with = list(filter(lambda item: item['quality_id'] == rec.quality_id.id and item[
@@ -52,6 +57,7 @@ class CarpetColorModel(models.Model):
                     if exist_with:
                         rec.price_unit = exist_with[0]['price']
                         rec.price_subtotal = exist_with[0]['price_subtotal']
+                        amount_total += exist_with[0]['price_subtotal']
                     else:
                         rec_list.append({
                             'quality_id': rec.quality_id.id,
@@ -61,6 +67,7 @@ class CarpetColorModel(models.Model):
                             'price_subtotal': rec.price_unit * rec.product_uom_qty
 
                         })
+                        amount_total += rec.price_unit * rec.square_foot
                 else:
                     rec_list.append({
                         'quality_id': rec.quality_id.id,
@@ -69,6 +76,8 @@ class CarpetColorModel(models.Model):
                         'price': rec.price_unit,
                         'price_subtotal': rec.price_unit * rec.product_uom_qty
                     })
+                amount_total = rec.price_unit * rec.square_foot
+
 
             if self.env.user.check_company:
                 rec.quality_id = rec.product_id.product_tmpl_id.carpet_quality_id.id
@@ -81,7 +90,7 @@ class CarpetColorModel(models.Model):
                         rec.square_foot = rec.product_uom_qty * rec.product_id.product_tmpl_id.carpet_length * 3.281 * 12
                     else:
                         rec.square_foot = rec.product_uom_qty * rec.product_id.product_tmpl_id.carpet_length * 3.281 * 12
-
+        self.amount_total = amount_total
     @api.onchange('color_line_id')
     def _onchange_line_color(self):
         total_roll = 0
@@ -104,7 +113,7 @@ class CarpetColorline(models.Model):
     discount = fields.Float('Discount %')
     sale_order_id = fields.Many2one("sale.order")
     product_id = fields.Char("Product")
-    design_id = fields.Many2one('product.category', required=True)
+    design_id = fields.Many2one('product.category', required=True, domain=lambda  self: [('company_id', '=', self.env.user.company_id.id)])
     child_design_id = fields.Many2one('digital.print.child', 'Child Design')
     child_image = fields.Binary('Child Image')
     check_design = fields.Boolean(default=False)
