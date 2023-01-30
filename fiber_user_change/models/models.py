@@ -16,5 +16,5 @@ class CategoryInheritModel(models.Model):
             'name': 'Product Categories',
             'res_model': 'product.category',
             'view_mode': 'tree,form',
-            'domain': [('company_id', '=', self.env.user.company_id.id)]
+            'domain': [('company_id' in self.env.user.company_ids.id)]
         }
