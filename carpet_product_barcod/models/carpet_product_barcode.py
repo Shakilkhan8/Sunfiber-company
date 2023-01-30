@@ -13,8 +13,8 @@ class CarpetProductBarcode(models.Model):
     _name = 'carpet.barcode'
     _rec_name = 'categ_id'
 
-    # categ_id = fields.Many2one('product.category', 'Design *', required=True,domain=lambda self: [('company_id', '=', self.env.user.company_id.id)])
-    categ_id = fields.Many2one('product.category', 'Design *', required=True)
+    categ_id = fields.Many2one('product.category', 'Design *', required=True,domain=lambda self: [('company_id', '=', self.env.user.company_id.id)])
+    # categ_id = fields.Many2one('product.category', 'Design *', required=True)
     carpet_color = fields.Char('Color *', required=True)
     carpet_quality = fields.Many2one("carpet.product.quality", "Quality *", requried=True)
     location_id = fields.Many2one('stock.location', "Location *", readonly=True, domain=[('usage', '=', 'internal')])
