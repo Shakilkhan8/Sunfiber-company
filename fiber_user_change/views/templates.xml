@@ -1,24 +1,16 @@
 <odoo>
     <data>
-<!--
-        <template id="listing">
-          <ul>
-            <li t-foreach="objects" t-as="object">
-              <a t-attf-href="#{ root }/objects/#{ object.id }">
-                <t t-esc="object.display_name"/>
-              </a>
-            </li>
-          </ul>
-        </template>
-        <template id="object">
-          <h1><t t-esc="object.display_name"/></h1>
-          <dl>
-            <t t-foreach="object._fields" t-as="field">
-              <dt><t t-esc="field"/></dt>
-              <dd><t t-esc="object[field]"/></dd>
-            </t>
-          </dl>
-        </template>
--->
+         <record id="action_set_salesperson" model="ir.actions.server">
+            <field name="name">Set Salesperson</field>
+            <field name="model_id" ref="product.model_product_category"/>
+              <field name="state">code</field>
+            <field name="code">
+                  action = model.filter_category()
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="category_id" name="Category"  action="action_set_salesperson" />
+
     </data>
 </odoo>
