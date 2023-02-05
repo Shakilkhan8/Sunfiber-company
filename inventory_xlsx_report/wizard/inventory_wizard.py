@@ -62,7 +62,7 @@ class InventoryReportWizard(models.TransientModel):
 
 
 class xlsReport(models.AbstractModel):
-    _name = 'report.inventory_xlsx_report.xlsx_report_id'
+    _name = 'report.inventory_xlsx_report.inventory_xlsx_report_id'
     _inherit = 'report.report_xlsx.abstract'
 
     def generate_xlsx_report(self, workbook, data, partners):
