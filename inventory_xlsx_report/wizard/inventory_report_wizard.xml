@@ -26,7 +26,7 @@
             <field name="target">new</field>
         </record>
 
-        <menuitem id="inventory_report_menu_item_id" name="Inventory xlsx Report" action="inventory_report_action_id" parent="stock.menu_stock_config_settings"/>
+        <menuitem id="inventory_report_menu_item_id" name="Inventory xlsx Report" action="inventory_report_action_id" parent="stock.menu_warehouse_report"/>
 
     </data>
 </odoo>
