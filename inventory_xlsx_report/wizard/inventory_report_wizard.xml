@@ -18,7 +18,7 @@
             </field>
         </record>
 
-        <record id="inventory_report_action_id" model="ir.actions.act_window">
+        <record id="inventory_xlsx_report_id" model="ir.actions.act_window">
             <field name="name">Inventory Report</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">inventory.report.wizard</field>
@@ -26,7 +26,7 @@
             <field name="target">new</field>
         </record>
 
-        <menuitem id="inventory_report_menu_item_id" name="Inventory xlsx Report" action="inventory_report_action_id" parent="stock.menu_warehouse_report"/>
+        <menuitem id="inventory_report_menu_item_id" name="Inventory xlsx Report" action="inventory_xlsx_report_id" parent="stock.menu_warehouse_report"/>
 
     </data>
 </odoo>
