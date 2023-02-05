@@ -66,12 +66,12 @@ class ProductProductInherit(models.Model):
                                                        operator=operator,
                                                        limit=limit)
         return recs.name_get()
-    
+
 
 class DigitalPrintChildCategory(models.Model):
     _name = 'digital.print.child'
 
     name = fields.Char('Child Design')
     image = fields.Binary('Image')
-    categ_id = fields.Many2one('product.category')
+    categ_id = fields.Many2one('product.category',domain= lambda self: [('company_id', '=', self.env.user.company_id.id)])
     combine_design_image = fields.Binary('Combine Design Image')
