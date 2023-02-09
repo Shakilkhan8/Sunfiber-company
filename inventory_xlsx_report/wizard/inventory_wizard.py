@@ -1,4 +1,7 @@
 import datetime
+import operator
+import pprint
+from operator import itemgetter
 
 from odoo.http import request
 
@@ -10,7 +13,8 @@ from datetime import datetime, date, timedelta
 class InventoryReportWizard(models.TransientModel):
     _name = 'inventory.report.wizard'
 
-    design_id = fields.Many2many('product.category' , domain= lambda self: [('company_id', '=', self.env.user.company_id.id)])
+    design_id = fields.Many2many('product.category',
+                                 domain=lambda self: [('company_id', '=', self.env.user.company_id.id)])
 
     def inventory_report_values(self):
         check_lst = []
@@ -21,7 +25,8 @@ class InventoryReportWizard(models.TransientModel):
                 if check_lst:
                     dict_exist = list(filter(lambda i: i['cat_name'] == line.categ_id.name, check_lst))
                     if dict_exist:
-                        color_check = list(filter(lambda item: item['color_name'] == line.carpet_color, dict_exist[0]['color']))
+                        color_check = list(
+                            filter(lambda item: item['color_name'] == line.carpet_color, dict_exist[0]['color']))
                         if color_check:
                             if line.carpet_grade_id.name == 'A':
                                 color_check[0]['grade_a_color_qty'] += line.qty_available
@@ -68,8 +73,8 @@ class xlsReport(models.AbstractModel):
     def generate_xlsx_report(self, workbook, data, partners):
 
         sheet = workbook.add_worksheet("Dail Stock Report")
-        formate_two = workbook.add_format({'font_size': 12,'align': 'center', 'bold': True})
-        formate_three = workbook.add_format({'font_size': 10,'align': 'center'})
+        formate_two = workbook.add_format({'font_size': 12, 'align': 'center', 'bold': True})
+        formate_three = workbook.add_format({'font_size': 10, 'align': 'center'})
         formates = workbook.add_format({'align': 'center', 'bold': True})
         sheet.set_column(2, 1, 25)
 
@@ -85,20 +90,27 @@ class xlsReport(models.AbstractModel):
 
             total_qty = 0
             total_b_qty = 0
-            row_two +=1
+            row_two += 1
             col = 3
-            for line in record['color']:
-                col +=2
+
+            # newlist = sorted(record['color'], key=lambda key: str(key['color_name']))
+            sorted_list = sorted(record['color'], key=lambda x: str(x['color_name']))
+
+            for line in sorted_list:
+                col += 2
                 total_qty += line['grade_a_color_qty']
                 total_b_qty += line['grade_b_color_qty']
                 sheet.write(row, 2, 'Total', formate_two)
                 sheet.write(row, col, line['color_name'], formate_two)
-                sheet.write(row +1, col, line['grade_a_color_qty'], formate_three)
-                sheet.write(row +2, col, line['grade_b_color_qty'], formate_three)
+                sheet.write(row + 1, col, line['grade_a_color_qty'], formate_three)
+                sheet.write(row + 2, col, line['grade_b_color_qty'], formate_three)
                 sheet.write(row + 1, 2, total_qty, formate_three)
                 sheet.write(row + 2, 2, total_b_qty, formate_three)
 
-            res = 'B'+ str(row)+":"+'M'+ str(row)
+            res = 'B' + str(row) + ":" + 'M' + str(row)
             sheet.merge_range(res, '')
-            row = row +4
+            row = row + 4
             row_three = row_two + 1
+
+    def sort_key(d):
+        return d['c']
